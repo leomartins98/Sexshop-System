@@ -1,0 +1,43 @@
+  [Enum] TipoDePagamento  : Cartao, Debito, Cheque
+[Tabela] TabelaDeProdutos
+
+-=-= Pedido =-=-
+Pedido:
+ - list(Produtos)
+
+-=-= Venda =-=-
+Venda:
+ - Frentista responsável
+ - Pedido
+ - TipoDePagamento
+ -> EmitirRecibo()
+
+list(Venda)
+
+-=-= Frentista =-=-
+View do Frentista:
+ * Adicionar ao Pedido
+    -> Adicionar o código do pedido -> TabelaDeProdutos[codigo]
+    -> Finalizar pedido -> Retirar do estoque os produtos do pedido
+        * throws InvalidInventory ("Por favor faça a recontagem de estoque.")
+
+-=-= Gerente =-=-
+Inventário:
+ - Produto
+ - (int) estoque
+
+View do Gerente:
+ * Adicionar Produto:
+    -> adiciona produto no inventário
+
+ * Remover Produto
+    -> remove o produto do inventário
+
+ * Adicionar Frentista
+    -> cadastra um novo frentista
+
+ * Manipular Pedido (View do Frentista)
+   * Remover Produto do Pedido
+
+ * [Opt.] Verificar Performance dos Frentista
+ * [Opt.] Produto mais vendido;
