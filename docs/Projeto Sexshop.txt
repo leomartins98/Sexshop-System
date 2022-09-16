@@ -5,6 +5,13 @@
 Pedido:
  - list(Produtos)
 
+-=-= Produto=-=-
+ - Id
+ - Nome
+ - Preço
+ - Quantidade
+ - Descrição
+
 -=-= Venda =-=-
 Venda:
  - Frentista responsável
