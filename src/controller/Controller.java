@@ -13,6 +13,7 @@ public class Controller {
         this.credenciais = credenciais;
         
         this.loginView.addLoginListener(new LoginListener());
+        this.loginView.addRegisterListener(new RegisterListener());
     }
 
     public void execute() {
@@ -49,6 +50,31 @@ public class Controller {
                 //funcionarioView.setVisible(true);
                 System.out.println("Acesso concedido. Alterando para view de Funcionário.");
             }
+        }
+    }
+
+    class RegisterListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            String username = loginView.getUsername();
+            String password = loginView.getPassword();
+
+            var c = credenciais.find(username);
+            if(c != null)
+            {
+                // TODO: View-usuario encontrado.
+                System.out.println("Usuário já cadastrado.");
+                return;
+            }
+        
+            // Gerentes devem ser setados manualmente:
+            credenciais.adicionarCredencial(username, password, false);
+            credenciais.salvarCredenciais();
+
+            // Após o cadastro, passa diretamente para tela de funcionário:
+            // loginView.setVisible(false);
+            // funcionarioView.setVisible(true);
+
+            System.out.println("Usuário inserido com sucesso. Navegando para View de funcionários.");
         }
     }
 }

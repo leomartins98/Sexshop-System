@@ -167,6 +167,10 @@ public class TelaLogin extends javax.swing.JFrame {
     public void addLoginListener(ActionListener e) {
         loginButton.addActionListener(e);
     }
+
+    public void addRegisterListener(ActionListener e) {
+        registerButton.addActionListener(e);
+    }
     
     public String getUsername() { 
         return usernameTextFIeld.getText();
