@@ -164,6 +164,9 @@ public class TelaLogin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_registerButtonActionPerformed
 
+    /*
+     * Listeners:
+     */
     public void addLoginListener(ActionListener e) {
         loginButton.addActionListener(e);
     }
@@ -172,11 +175,14 @@ public class TelaLogin extends javax.swing.JFrame {
         registerButton.addActionListener(e);
     }
     
+    /*
+     * Getters:
+     */
     public String getUsername() { 
         return usernameTextFIeld.getText();
     }
     
-     public String getPassword() { 
+    public String getPassword() { 
         return passwordTextField.getText();
     }
             
