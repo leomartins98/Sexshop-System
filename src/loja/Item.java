@@ -1,28 +1,28 @@
 package loja;
 
 public class Item {
-    Produto prod;
-    private Integer qtdItens;
+    private Produto produto;
+    private Integer quantidade;
 
     public Item(Produto produto, int quantidade) {
-        this.prod = produto;
-        this.qtdItens = quantidade;
+        this.produto = produto;
+        this.quantidade = quantidade;
     }
 
-    public Produto getProd() {
-        return prod;
+    public Produto getProduto() {
+        return produto;
     }
 
-    public void setProd(Produto prod) {
-        this.prod = prod;
+    public void setProduto(Produto prod) {
+        this.produto = prod;
     }
 
-    public int getQtdItens() {
-        return qtdItens;
+    public int getQuantidade() {
+        return quantidade;
     }
 
-    public void setQtdItens(int qtdItens) {
-        this.qtdItens = qtdItens;
+    public void setQuantidade(int qtdItens) {
+        this.quantidade = qtdItens;
     }
 }
 

@@ -8,17 +8,17 @@ public class Pedido {
     private double totalPedido = 0;
     private ArrayList<Item> itens;
 
-    public Pedido(TipoPagamento tipoPgt) {
+    public Pedido(TipoPagamento tipoPagamento) {
         itens = new ArrayList<Item>();
-        this.tipoDePagamento = tipoPgt;
+        this.tipoDePagamento = tipoPagamento;
     }
 
-    public TipoPagamento getTipoPgt() {
+    public TipoPagamento getTipoPagamento() {
         return this.tipoDePagamento;
     }
 
-    public void setTipoPgt(TipoPagamento tipoPgt) {
-        this.tipoDePagamento = tipoPgt;
+    public void setTipoPagamento(TipoPagamento tipoPagamento) {
+        this.tipoDePagamento = tipoPagamento;
     }
 
     public double getTotalPedido() {
@@ -31,10 +31,6 @@ public class Pedido {
 
     public ArrayList<Item> getItens() {
         return this.itens;
-    }
-
-    public void setItens(ArrayList<Item> itens) {
-        this.itens = itens;
     }
 
     public void addItem(Item item) {
