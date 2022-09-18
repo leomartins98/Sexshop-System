@@ -43,6 +43,15 @@ public class Credenciais {
         }
     }
 
+    public Credencial find(String nomeUsuario) {
+        for(Credencial credencial : credenciais) {
+            if(credencial.usuario.equals(nomeUsuario)) {
+                return credencial;
+            }
+        }
+        return null;
+    }
+
     private ArrayList<Credencial> lerCredenciais(String caminhoDoArquivo) {
         ArrayList<Credencial> resultados = new ArrayList<Credencial>();
 
