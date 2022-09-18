@@ -19,9 +19,9 @@ public class Credenciais {
 
     public ArrayList<Credencial> getCredenciais() { return credenciais; }
 
-    public void adicionarCredencial(String usuario, String senha)
+    public void adicionarCredencial(String usuario, String senha, boolean administrador)
     {
-        this.credenciais.add(new Credencial(usuario, senha));
+        this.credenciais.add(new Credencial(usuario, senha, administrador));
     }
 
     public void salvarCredenciais()
@@ -30,7 +30,8 @@ public class Credenciais {
             FileWriter writter = new FileWriter(this.caminhoDoArquivo);
 
             for(Credencial credencial : this.credenciais) {
-                writter.write(credencial.usuario + "," + credencial.senha + "\n");
+                String administrador = credencial.administrador ? "adm" : "fun";
+                writter.write(credencial.usuario + "," + credencial.senha + "," + administrador + "\n");
             }
 
             writter.close();
@@ -57,7 +58,8 @@ public class Credenciais {
 
                 String[] args = data.split(",");
 
-                resultados.add(new Credencial(args[0], args[1]));
+                boolean administrador = (args[2].equals("adm"));
+                resultados.add(new Credencial(args[0], args[1], administrador));
             }
 
             reader.close();
