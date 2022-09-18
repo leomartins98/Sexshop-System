@@ -14,6 +14,10 @@ public class Controller {
         
         this.loginView.addLoginListener(new LoginListener());
     }
+
+    public void execute() {
+        this.loginView.setVisible(true);
+    }
         
     class LoginListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
@@ -40,10 +44,10 @@ public class Controller {
             
             if(c.administrador == true) {
                 //gerenteView.setVisible(true);
-                // seta a view para gerente.
+                System.out.println("Acesso concedido. Alterando para view de Gerente.");
             } else { 
                 //funcionarioView.setVisible(true);
-                // seta view para funcionário.
+                System.out.println("Acesso concedido. Alterando para view de Funcionário.");
             }
         }
     }
