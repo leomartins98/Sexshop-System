@@ -2,15 +2,18 @@ package controller;
 
 import view.TelaLogin;
 import view.TelaAdmin;
+import view.TelaCadastroColab;
 
 import java.awt.event.*;
 
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
+import javax.swing.table.DefaultTableModel;
 
 import credencial.*;
 
 public class Controller {
+    private TelaCadastroColab cadastroView;
     private TelaLogin loginView;
     private TelaAdmin adminView;
 
@@ -19,6 +22,7 @@ public class Controller {
     public Controller(TelaLogin login, TelaAdmin adminView, Credenciais credenciais) {
         this.loginView = login;
         this.adminView = adminView;
+        this.cadastroView = new TelaCadastroColab();
 
         this.credenciais = credenciais;
         
@@ -27,7 +31,9 @@ public class Controller {
         for(Credencial c : this.credenciais.getCredenciais())
             this.adminView.adicionarFuncionarioNaTabela(c.usuario, c.usuario, c.senha, c.administrador);
 
-        this.adminView.addListenerToTable(new FuncionarioListener());
+        this.adminView.addListenerToTable(new FuncionarioModelListener());
+        this.adminView.addCredentialRegisterListener(new CredentialRegisterListener());
+        this.cadastroView.addCadastrarListener(new CadastrarListener());
     }
 
     public void execute() {
@@ -96,17 +102,48 @@ public class Controller {
         }
     }
 
-    class FuncionarioListener implements TableModelListener {
+    class FuncionarioModelListener implements TableModelListener {
 
         @Override
         public void tableChanged(TableModelEvent e) {
             int row = adminView.getColabTable().getSelectedRow();
+            if(row < 0)
+                return;
 
             String[] rowAtual = adminView.getRowAt(row);
 
             boolean administrador = rowAtual[3].toLowerCase().equals("administrador") ? true : false;
             credenciais.update(rowAtual[0], new Credencial(rowAtual[0], rowAtual[1], rowAtual[2], administrador));
             credenciais.salvarCredenciais();
+        }
+
+    }
+
+    class CredentialRegisterListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            cadastroView.setVisible(true);
+        }
+
+    }
+
+    class CadastrarListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            var nome = cadastroView.getUser();
+            var usuario = cadastroView.getUsername();
+            var senha = cadastroView.getPassword();
+            var administrador = cadastroView.getAdm();
+
+            DefaultTableModel model = (DefaultTableModel) adminView.getColabTable().getModel();
+            model.addRow(new Object[]{nome, usuario, senha, administrador ? "Administrador" : "Funcionário" });
+
+            credenciais.adicionarCredencial(nome, usuario, senha, administrador);
+            credenciais.salvarCredenciais();
+
+            cadastroView.setVisible(false);
         }
 
     }

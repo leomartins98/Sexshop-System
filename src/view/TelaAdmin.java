@@ -5,6 +5,7 @@
 package view;
 
 import javax.swing.event.TableModelListener;
+import java.awt.event.ActionListener;
 
 /**
  *
@@ -186,6 +187,10 @@ public class TelaAdmin extends javax.swing.JFrame {
     public void addListenerToTable(TableModelListener l) {
         javax.swing.table.DefaultTableModel model = ( javax.swing.table.DefaultTableModel)jTable1.getModel();
         model.addTableModelListener(l);
+    }
+
+    public void addCredentialRegisterListener(ActionListener l){
+        jButton2.addActionListener(l);
     }
 
     public javax.swing.JTable getColabTable() {
