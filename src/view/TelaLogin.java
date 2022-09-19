@@ -86,7 +86,7 @@ public class TelaLogin extends javax.swing.JFrame {
             }
         });
 
-        jIcon.setIcon(new javax.swing.ImageIcon("C:\\Users\\paulo\\Desktop\\Sexshop-System\\images\\logo.jpg")); // NOI18N
+        jIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo.jpg"))); // NOI18N
 
         javax.swing.GroupLayout sistemaPanelLayout = new javax.swing.GroupLayout(sistemaPanel);
         sistemaPanel.setLayout(sistemaPanelLayout);
