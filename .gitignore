@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-/StockApplication/nbproject/private/
-/StockApplication/build/
-=======
-/build/
-/private/
-/nbproject/private/
->>>>>>> ea28808e2f467ae432ed24bd5f2b3517046805c5
+StockApplication/nbproject/[Pp]rivate/
+StockApplication/[Bb]uild/
+[Bb]uild
+[Pp]rivate
