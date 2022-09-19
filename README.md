@@ -8,7 +8,7 @@ Para executar o sistema, você primeiro precisará instalar o kit de desenvolvim
  * [Java SE Development Kit 8 (JDK 8)](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
  * [Visual Studio Code](https://code.visualstudio.com/download)
  * [Apache NetBeans 13](https://netbeans.apache.org/download/nb13/nb13.html)
- * [Git]
+ * [Git](https://git-scm.com/downloads)
 
 ## Download
 A fim de acessar os arquivos do projeto, primeiro você deve baixá-los. A opção mais adequada é cloná-lo utilizando o git. Entretanto, você também pode baixar o projeto clicando [aqui](https://github.com/leomartins98/Sexshop-System/archive/refs/heads/main.zip). Para clonar o repositório em sua máquina, utilize o seguinte comando:
