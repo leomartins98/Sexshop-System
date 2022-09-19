@@ -32,7 +32,7 @@ public class Controller {
     }
 
     public void execute() {
-        this.adminView.setVisible(true);
+        this.loginView.setVisible(true);
     }
         
     class LoginListener implements ActionListener {
@@ -57,12 +57,12 @@ public class Controller {
             }
             
             // Esconde a view de login:
-            //loginView.setVisible(false);
+            loginView.setVisible(false);
             
             if(c.administrador == true) {
-                //gerenteView.setVisible(true);
+                adminView.setVisible(true);
                 System.out.println("Acesso concedido. Alterando para view de Gerente.");
-            } else { 
+            } else {
                 //funcionarioView.setVisible(true);
                 System.out.println("Acesso concedido. Alterando para view de Funcionário.");
             }
@@ -104,7 +104,8 @@ public class Controller {
             int row = adminView.getColabTable().getSelectedRow();
 
             String[] rowAtual = adminView.getRowAt(row);
-            boolean administrador = rowAtual[3].toLowerCase() == "administrador" ? true : false;
+
+            boolean administrador = rowAtual[3].toLowerCase().equals("administrador") ? true : false;
             credenciais.update(rowAtual[0], new Credencial(rowAtual[0], rowAtual[1], rowAtual[2], administrador));
             credenciais.salvarCredenciais();
         }
