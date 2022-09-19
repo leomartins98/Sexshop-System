@@ -26,7 +26,7 @@ public class Controller {
             String password = loginView.getPassword();
             
             var c = credenciais.find(username);
-            if(c == null)
+            if(!c.isValid())
             {
                 // TODO: View-usuario nao encontrado.
                 System.out.println("Usuario nao encontrado");
@@ -59,7 +59,7 @@ public class Controller {
             String password = loginView.getPassword();
 
             var c = credenciais.find(username);
-            if(c != null)
+            if(c.isValid())
             {
                 // TODO: View-usuario encontrado.
                 System.out.println("Usuário já cadastrado.");

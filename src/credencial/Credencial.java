@@ -17,4 +17,8 @@ public class Credencial
         String isAdm = this.administrador ? "Sim" : "Nao";
         return "Usuario: " + this.usuario + " | Senha: " + this.senha + " | Administrador: " + isAdm;
     }
+
+    public boolean isValid() {
+        return this == null;
+    }
 }
