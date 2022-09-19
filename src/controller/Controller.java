@@ -23,7 +23,6 @@ public class Controller {
         this.credenciais = credenciais;
         
         this.loginView.addLoginListener(new LoginListener());
-        this.loginView.addRegisterListener(new RegisterListener());
 
         for(Credencial c : this.credenciais.getCredenciais())
             this.adminView.adicionarFuncionarioNaTabela(c.usuario, c.usuario, c.senha, c.administrador);
