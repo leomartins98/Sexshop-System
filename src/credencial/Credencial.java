@@ -19,6 +19,6 @@ public class Credencial
     }
 
     public boolean isValid() {
-        return this == null;
+        return this != null;
     }
 }
