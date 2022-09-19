@@ -1,5 +1,8 @@
 import controller.Controller;
+
+import view.TelaAdmin;
 import view.TelaLogin;
+
 import credencial.*;
 
 public class Main {
@@ -13,8 +16,9 @@ public class Main {
         
         // VIEWS:
         TelaLogin loginView = new TelaLogin();
+        TelaAdmin adminView = new TelaAdmin();
 
-        Controller controller = new Controller(loginView, credenciais);
+        Controller controller = new Controller(loginView, adminView, credenciais);
         controller.execute();
     }
 }

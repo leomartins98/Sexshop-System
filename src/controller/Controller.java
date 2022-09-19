@@ -1,23 +1,32 @@
 package controller;
 
-import java.awt.event.*;
 import view.TelaLogin;
+import view.TelaAdmin;
+
+import java.awt.event.*;
 import credencial.*;
 
 public class Controller {
     private TelaLogin loginView;
+    private TelaAdmin adminView;
+
     private Credenciais credenciais;
 
-    public Controller(TelaLogin login, Credenciais credenciais) {
+    public Controller(TelaLogin login, TelaAdmin adminView, Credenciais credenciais) {
         this.loginView = login;
+        this.adminView = adminView;
+
         this.credenciais = credenciais;
         
         this.loginView.addLoginListener(new LoginListener());
         this.loginView.addRegisterListener(new RegisterListener());
+
+        for(Credencial c : this.credenciais.getCredenciais())
+            this.adminView.adicionarFuncionarioNaTabela(c.usuario, c.usuario, c.senha, c.administrador);
     }
 
     public void execute() {
-        this.loginView.setVisible(true);
+        this.adminView.setVisible(true);
     }
         
     class LoginListener implements ActionListener {
@@ -26,7 +35,8 @@ public class Controller {
             String password = loginView.getPassword();
             
             var c = credenciais.find(username);
-            if(!c.isValid())
+
+            if(c == null || !c.isValid())
             {
                 // TODO: View-usuario nao encontrado.
                 System.out.println("Usuario nao encontrado");
@@ -59,6 +69,9 @@ public class Controller {
             String password = loginView.getPassword();
 
             var c = credenciais.find(username);
+            if(c == null)
+                return;
+
             if(c.isValid())
             {
                 // TODO: View-usuario encontrado.
