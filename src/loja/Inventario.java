@@ -10,7 +10,23 @@ public class Inventario {
     }
 
     public void addItem(Produto produto, int quantidade) {
+        for(Item item : itensDisponiveis) {
+            if(produto.getNome().equals(item.getProduto().getNome())) {
+                item.addQuantidade(quantidade);
+                return;
+            }
+        }
+        
         itensDisponiveis.add(new Item(produto, quantidade));
+    }
+
+    public void removeItem(String nomeProduto, int quantidade) {
+        for(Item item : itensDisponiveis) {
+            if(nomeProduto.equals(item.getProduto().getNome())) {
+                item.subQuantidade(quantidade);
+                return;
+            }
+        }
     }
 
     public boolean emEstoque(String nomeProduto, int quantidade) {

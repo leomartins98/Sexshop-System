@@ -21,8 +21,16 @@ public class Item {
         return quantidade;
     }
 
-    public void setQuantidade(int qtdItens) {
-        this.quantidade = qtdItens;
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
+
+    public void addQuantidade(int quantidade) {
+        this.quantidade += quantidade;
+    }
+
+    public void subQuantidade(int quantidade) {
+        this.quantidade -= quantidade;
     }
 }
 
