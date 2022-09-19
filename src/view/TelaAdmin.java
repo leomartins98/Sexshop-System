@@ -4,6 +4,8 @@
  */
 package view;
 
+import javax.swing.event.TableModelListener;
+
 /**
  *
  * @author gugarauj07
@@ -181,6 +183,24 @@ public class TelaAdmin extends javax.swing.JFrame {
         model.addRow(new Object[]{nome, username, senha, administrador ? "Administrador" : "Funcionário"});
     }
     
+    public void addListenerToTable(TableModelListener l) {
+        javax.swing.table.DefaultTableModel model = ( javax.swing.table.DefaultTableModel)jTable1.getModel();
+        model.addTableModelListener(l);
+    }
+
+    public javax.swing.JTable getColabTable() {
+        return jTable1;
+    }
+
+    public String[] getRowAt(int row) {
+        String[] resultados = new String[jTable1.getColumnCount()];
+
+        for (int i = 0; i < jTable1.getColumnCount(); i++)
+            resultados[i] = (String)jTable1.getModel().getValueAt(row, i);
+   
+        return resultados;
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

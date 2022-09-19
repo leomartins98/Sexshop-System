@@ -4,6 +4,10 @@ import view.TelaLogin;
 import view.TelaAdmin;
 
 import java.awt.event.*;
+
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
+
 import credencial.*;
 
 public class Controller {
@@ -23,6 +27,8 @@ public class Controller {
 
         for(Credencial c : this.credenciais.getCredenciais())
             this.adminView.adicionarFuncionarioNaTabela(c.usuario, c.usuario, c.senha, c.administrador);
+
+        this.adminView.addListenerToTable(new FuncionarioListener());
     }
 
     public void execute() {
@@ -80,7 +86,7 @@ public class Controller {
             }
         
             // Gerentes devem ser setados manualmente:
-            credenciais.adicionarCredencial(username, password, false);
+            credenciais.adicionarCredencial(username, username, password, false);
             credenciais.salvarCredenciais();
 
             // Após o cadastro, passa diretamente para tela de funcionário:
@@ -89,5 +95,19 @@ public class Controller {
 
             System.out.println("Usuário inserido com sucesso. Navegando para View de funcionários.");
         }
+    }
+
+    class FuncionarioListener implements TableModelListener {
+
+        @Override
+        public void tableChanged(TableModelEvent e) {
+            int row = adminView.getColabTable().getSelectedRow();
+
+            String[] rowAtual = adminView.getRowAt(row);
+            boolean administrador = rowAtual[3].toLowerCase() == "administrador" ? true : false;
+            credenciais.update(rowAtual[0], new Credencial(rowAtual[0], rowAtual[1], rowAtual[2], administrador));
+            credenciais.salvarCredenciais();
+        }
+
     }
 }
