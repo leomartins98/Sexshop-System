@@ -1,0 +1,7 @@
+-= Termos =-
+Explicação dos termos utilizados por cada uma das classes do pacote Loja.
+
+Produto: Representa as características de um produto físico na loja. 
+Item: Representa uma união de produto e quantidade a ser utilzado pela classe Pedido.
+Pedido: Uma lista de itens. Representa uma nota fiscal, com itens e tipo de pagamento.
+Inventário: Uma lista de itens que estão atualmente em estoque.
