@@ -54,7 +54,7 @@ public class Controller {
 
     this.adminView.addProductToTable(new ProductModelListener());
     this.adminView.addProductRegisterListener(new RegisterProductListener());
-    this.cadastroView.addCadastrarListener(new CadastrarListener());
+    this.cadastroProduto.addCadastrarProduto(new CadastrarProdutoListener());
   }
 
   public void execute() {
@@ -195,7 +195,7 @@ public class Controller {
       String[] rowAtual = adminView.getRowProductAt(row);
 
       bancoDadosProdutos.update(
-        rowAtual[0],
+        Integer.parseInt(rowAtual[0]),
         new Produto(
           Integer.parseInt(rowAtual[0]),
           rowAtual[1],
@@ -205,7 +205,7 @@ public class Controller {
         )
       );
 
-      credenciais.salvarCredenciais();
+      bancoDadosProdutos.salvarProdutos();
     }
   }
 
@@ -214,6 +214,29 @@ public class Controller {
     @Override
     public void actionPerformed(ActionEvent e) {
       cadastroProduto.setVisible(true);
+    }
+  }
+
+  class CadastrarProdutoListener implements ActionListener {
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+      var id = 0;
+      var nome = cadastroProduto.getNome();
+      var preco = cadastroProduto.getPreco();
+      var descricao = cadastroProduto.getDescricao();
+      var qtd = cadastroProduto.getQuantidade();
+
+      DefaultTableModel model = (DefaultTableModel) adminView
+        .getProductTable()
+        .getModel();
+      model.addRow(new Object[] { id, nome, preco, descricao, qtd });
+
+      bancoDadosProdutos.adicionarProduto(id, nome, preco, descricao, qtd);
+      bancoDadosProdutos.salvarProdutos();
+
+      cadastroProduto.clearView();
+      cadastroProduto.setVisible(false);
     }
   }
 }

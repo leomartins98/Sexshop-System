@@ -23,12 +23,13 @@ public class BancoDadosProdutos {
   }
 
   public void adicionarProduto(
+    int id,
     String nome,
     Float preco,
     String descricao,
     int qtd
   ) {
-    this.produtos.add(new Produto(nome, preco, descricao, qtd));
+    this.produtos.add(new Produto(id, nome, preco, descricao, qtd));
   }
 
   public Produto find(String nomeProduto) {
@@ -40,10 +41,10 @@ public class BancoDadosProdutos {
     return null;
   }
 
-  public void update(String produtoNome, Produto novoProduto) {
+  public void update(int id, Produto novoProduto) {
     int index = 0;
     for (Produto produto : this.produtos) {
-      if (produto.getNome().equals(produtoNome)) {
+      if (id == produto.getID()) {
         produtos.set(index, novoProduto);
         return;
       }
@@ -58,11 +59,15 @@ public class BancoDadosProdutos {
 
       for (Produto produto : this.produtos) {
         writter.write(
+          Integer.toString(produto.getID()) +
+          "," +
           produto.getNome() +
           "," +
           Float.toString(produto.getPreco()) +
           "," +
           produto.getDescricao() +
+          "," +
+          produto.getQtd() +
           "\n"
         );
       }

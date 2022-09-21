@@ -262,6 +262,13 @@ public class TelaCadastroInvent extends javax.swing.JFrame {
     return (Integer) jSpinner1.getValue();
   }
 
+  public void clearView() {
+    jTextField4.setText("");
+    jTextField5.setText("");
+    jTextArea1.setText("");
+    jSpinner1.setValue(1);
+  }
+
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JButton jButton1;
   private javax.swing.JLabel jLabel1;

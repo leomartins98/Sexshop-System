@@ -476,7 +476,7 @@ public class TelaAdmin extends javax.swing.JFrame {
     String[] resultados = new String[jTable2.getColumnCount()];
 
     for (int i = 0; i < jTable2.getColumnCount(); i++) resultados[i] =
-      (String) jTable2.getModel().getValueAt(row, i);
+      String.valueOf(jTable2.getModel().getValueAt(row, i));
 
     return resultados;
   }
