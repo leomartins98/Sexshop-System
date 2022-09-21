@@ -11,6 +11,7 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 
 import credencial.*;
+import produtos.BancoDadosProdutos;
 
 public class Controller {
     private TelaCadastroColab cadastroView;
@@ -18,12 +19,14 @@ public class Controller {
     private TelaAdmin adminView;
 
     private Credenciais credenciais;
+    private BancoDadosProdutos bancoDadosProdutos;
 
-    public Controller(TelaLogin login, TelaAdmin adminView, Credenciais credenciais) {
+    public Controller(TelaLogin login, TelaAdmin adminView, Credenciais credenciais, BancoDadosProdutos bancoDadosProdutos) {
         this.loginView = login;
         this.adminView = adminView;
         this.cadastroView = new TelaCadastroColab();
 
+        this.bancoDadosProdutos = bancoDadosProdutos;
         this.credenciais = credenciais;
         
         this.loginView.addLoginListener(new LoginListener());

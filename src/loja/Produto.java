@@ -7,7 +7,7 @@ public class Produto {
     private float preco;
     private String descricao;
 
-    public Produto(String nome, float preco, int quantidade, String descricao) {
+    public Produto(String nome, float preco, String descricao) {
         this.id = incremento++;
         this.nome = nome;
         this.preco = preco;
