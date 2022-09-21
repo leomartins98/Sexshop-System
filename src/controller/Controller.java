@@ -149,6 +149,7 @@ public class Controller {
             credenciais.adicionarCredencial(nome, usuario, senha, administrador);
             credenciais.salvarCredenciais();
 
+            cadastroView.clear();
             cadastroView.setVisible(false);
         }
 
