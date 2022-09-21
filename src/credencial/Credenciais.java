@@ -35,7 +35,7 @@ public class Credenciais {
             }
 
             writter.close();
-            System.out.println("Credencial adicionada ao arquivo.");
+            System.out.println("Arquivo credencial modificado.");
                        
         } catch (IOException e) {
             System.out.println("An error occurred.");
