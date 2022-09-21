@@ -6,6 +6,7 @@ import view.TelaCadastroColab;
 
 import java.awt.event.*;
 
+import javax.swing.JFrame;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
@@ -36,7 +37,9 @@ public class Controller {
 
         this.adminView.addListenerToTable(new FuncionarioModelListener());
         this.adminView.addCredentialRegisterListener(new CredentialRegisterListener());
+        
         this.cadastroView.addCadastrarListener(new CadastrarListener());
+        this.cadastroView.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
     }
 
     public void execute() {
