@@ -55,7 +55,7 @@ public class TelaAdmin extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Gerenciamento de Colaboradores");
+        jLabel2.setText("Gerenciamento de Inventário");
 
         jButton3.setText("Cadastrar");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -73,10 +73,10 @@ public class TelaAdmin extends javax.swing.JFrame {
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+                {null, null, null, null, null}
             },
             new String [] {
-                "Nome", "Username", "Senha", "Cargo"
+                "ID", "Nome", "Preço", "Descrição", "Quantidade"
             }
         ));
         jScrollPane2.setViewportView(jTable2);
@@ -105,7 +105,7 @@ public class TelaAdmin extends javax.swing.JFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Produtos", new javax.swing.ImageIcon(getClass().getResource("/images/package.png")), jPanel1); // NOI18N
+        jTabbedPane1.addTab("Inventário", new javax.swing.ImageIcon(getClass().getResource("/images/package.png")), jPanel1); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
