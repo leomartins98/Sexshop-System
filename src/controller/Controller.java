@@ -2,11 +2,6 @@ package controller;
 
 import credencial.*;
 import java.awt.event.*;
-<<<<<<< HEAD
-=======
-
-import javax.swing.JFrame;
->>>>>>> 25a52ac2ae53c4e3ed73bcf2e736746d683591ac
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
@@ -41,7 +36,6 @@ public class Controller {
     this.bancoDadosProdutos = bancoDadosProdutos;
     this.credenciais = credenciais;
 
-<<<<<<< HEAD
     this.loginView.addLoginListener(new LoginListener());
 
     for (Credencial c : this.credenciais.getCredenciais()) this.adminView.adicionarFuncionarioNaTabela(
@@ -100,13 +94,6 @@ public class Controller {
           "Acesso concedido. Alterando para view de Funcionário."
         );
       }
-=======
-        this.adminView.addListenerToTable(new FuncionarioModelListener());
-        this.adminView.addCredentialRegisterListener(new CredentialRegisterListener());
-        
-        this.cadastroView.addCadastrarListener(new CadastrarListener());
-        this.cadastroView.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
->>>>>>> 25a52ac2ae53c4e3ed73bcf2e736746d683591ac
     }
   }
 
