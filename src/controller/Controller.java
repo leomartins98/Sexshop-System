@@ -51,10 +51,8 @@ public class Controller {
       );
     this.cadastroView.addCadastrarListener(new CadastrarListener());
 
-    this.adminView.addProductToTable(new FuncionarioModelListener());
-    this.adminView.addCredentialRegisterListener(
-        new CredentialRegisterListener()
-      );
+    this.adminView.addProductToTable(new ProductModelListener());
+    this.adminView.addProductRegisterListener(new RegisterProductListener());
     this.cadastroView.addCadastrarListener(new CadastrarListener());
   }
 
@@ -202,7 +200,15 @@ public class Controller {
           Integer.parseInt(rowAtual[4])
         )
       );
-      credenciais.salvarCredenciais();
+      bancoDadosProdutos.salvarProdutos();
+    }
+  }
+
+  class RegisterProductListener implements ActionListener {
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+      cadastroProduto.setVisible(true);
     }
   }
 }
