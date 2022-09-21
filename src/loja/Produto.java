@@ -1,48 +1,67 @@
 package loja;
 
 public class Produto {
-    private static int incremento = 0;
-    private int id;
-    private String nome;
-    private float preco;
-    private String descricao;
 
-    public Produto(String nome, float preco, String descricao) {
-        this.id = incremento++;
-        this.nome = nome;
-        this.preco = preco;
-        this.descricao = descricao;
-    }
+  private static int incremento = 0;
+  private int id;
+  private String nome;
+  private float preco;
+  private String descricao;
+  private int qtd;
 
-    public int getID() {
-        return id;
-    }
+  public Produto(String nome, float preco, String descricao, int qtd) {
+    this.id = incremento++;
+    this.nome = nome;
+    this.preco = preco;
+    this.descricao = descricao;
+    this.qtd = qtd;
+  }
 
-    public void setID(int id) {
-        this.id = id;
-    }
+  public Produto(int id, String nome, float preco, String descricao, int qtd) {
+    this.id = id;
+    this.nome = nome;
+    this.preco = preco;
+    this.descricao = descricao;
+    this.qtd = qtd;
+  }
 
-    public String getNome() {
-        return nome;
-    }
+  public int getID() {
+    return id;
+  }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+  public void setID(int id) {
+    this.id = id;
+  }
 
-    public float getPreco() {
-        return preco;
-    }
+  public String getNome() {
+    return nome;
+  }
 
-    public void setPreco(float preco) {
-        this.preco = preco;
-    }
+  public void setNome(String nome) {
+    this.nome = nome;
+  }
 
-    public String getDescricao() {
-        return descricao;
-    }
+  public float getPreco() {
+    return preco;
+  }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
+  public void setPreco(float preco) {
+    this.preco = preco;
+  }
+
+  public String getDescricao() {
+    return descricao;
+  }
+
+  public void setDescricao(String descricao) {
+    this.descricao = descricao;
+  }
+
+  public int getQtd() {
+    return qtd;
+  }
+
+  public void setQtd(int qtd) {
+    this.qtd = qtd;
+  }
 }
