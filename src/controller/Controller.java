@@ -2,7 +2,6 @@ package controller;
 
 import credencial.*;
 import java.awt.event.*;
-
 import javax.swing.JFrame;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
@@ -16,177 +15,185 @@ import view.TelaLogin;
 
 public class Controller {
 
-	private TelaCadastroInvent cadastroProduto;
-	private TelaCadastroColab cadastroView;
-	private TelaLogin loginView;
-	private TelaAdmin adminView;
+  private TelaCadastroInvent cadastroProduto;
+  private TelaCadastroColab cadastroView;
+  private TelaLogin loginView;
+  private TelaAdmin adminView;
 
-	private Credenciais credenciais;
-	private BancoDadosProdutos bancoDadosProdutos;
+  private Credenciais credenciais;
+  private BancoDadosProdutos bancoDadosProdutos;
 
-  	public Controller(TelaLogin login, TelaAdmin adminView, Credenciais credenciais, BancoDadosProdutos bancoDadosProdutos) {
-		this.loginView = login;
-		this.adminView = adminView;
-		this.cadastroView = new TelaCadastroColab();
-		this.cadastroProduto = new TelaCadastroInvent();
+  public Controller(
+    TelaLogin login,
+    TelaAdmin adminView,
+    Credenciais credenciais,
+    BancoDadosProdutos bancoDadosProdutos
+  ) {
+    this.loginView = login;
+    this.adminView = adminView;
+    this.cadastroView = new TelaCadastroColab();
+    this.cadastroProduto = new TelaCadastroInvent();
 
-		this.bancoDadosProdutos = bancoDadosProdutos;
-		this.credenciais = credenciais;
+    this.bancoDadosProdutos = bancoDadosProdutos;
+    this.credenciais = credenciais;
 
-		this.loginView.addLoginListener(new LoginListener());
+    this.loginView.addLoginListener(new LoginListener());
 
-		for (Credencial c : this.credenciais.getCredenciais()) this.adminView.adicionarFuncionarioNaTabela(
-			c.usuario,
-			c.usuario,
-			c.senha,
-			c.administrador
-		);
+    for (Credencial c : this.credenciais.getCredenciais()) this.adminView.adicionarFuncionarioNaTabela(
+        c.usuario,
+        c.usuario,
+        c.senha,
+        c.administrador
+      );
 
-		this.adminView.addListenerToTable(new FuncionarioModelListener());
-		this.adminView.addCredentialRegisterListener(
-			new CredentialRegisterListener()
-		);
-		this.cadastroView.addCadastrarListener(new CadastrarListener());
+    this.adminView.addListenerToTable(new FuncionarioModelListener());
+    this.adminView.addCredentialRegisterListener(
+        new CredentialRegisterListener()
+      );
+    this.cadastroView.addCadastrarListener(new CadastrarListener());
 
-<<<<<<< HEAD
     this.adminView.addProductToTable(new ProductModelListener());
     this.adminView.addProductRegisterListener(new RegisterProductListener());
     this.cadastroView.addCadastrarListener(new CadastrarListener());
   }
-=======
-		this.adminView.addProductToTable(new FuncionarioModelListener());
-		this.adminView.addCredentialRegisterListener(
-			new CredentialRegisterListener()
-		);
-		
-		this.cadastroView.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		this.cadastroView.addCadastrarListener(new CadastrarListener());
-  	}
->>>>>>> b2838d93ff65895bec93a823a9e2f5a09572e049
 
-	public void execute() {
-		this.loginView.setVisible(true);
-	}
+  public void execute() {
+    this.loginView.setVisible(true);
+  }
 
-	class LoginListener implements ActionListener {
-		
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			String username = loginView.getUsername();
-			String password = loginView.getPassword();
+  class LoginListener implements ActionListener {
 
-			var c = credenciais.find(username);
+    @Override
+    public void actionPerformed(ActionEvent e) {
+      String username = loginView.getUsername();
+      String password = loginView.getPassword();
 
-			if (c == null || !c.isValid()) {
-				// TODO: View-usuario nao encontrado.
-				System.out.println("Usuario nao encontrado");
-				return;
-			}
+      var c = credenciais.find(username);
 
-			if (!c.senha.equals(password)) {
-				// TODO: View-Senha incorreta.
-				System.out.println("Senha incorreta");
-				return;
-			}
+      if (c == null || !c.isValid()) {
+        // TODO: View-usuario nao encontrado.
+        System.out.println("Usuario nao encontrado");
+        return;
+      }
 
-			// Esconde a view de login:
-			loginView.setVisible(false);
+      if (!c.senha.equals(password)) {
+        // TODO: View-Senha incorreta.
+        System.out.println("Senha incorreta");
+        return;
+      }
 
-			if (c.administrador == true) {
-				adminView.setVisible(true);
-				System.out.println("Acesso concedido. Alterando para view de Gerente.");
-			} else {
-				//funcionarioView.setVisible(true);
-				System.out.println(
-				"Acesso concedido. Alterando para view de Funcionário."
-				);
-			}
-		}
-	
-	}
+      // Esconde a view de login:
+      loginView.setVisible(false);
 
-	class RegisterListener implements ActionListener {
+      if (c.administrador == true) {
+        adminView.setVisible(true);
+        System.out.println("Acesso concedido. Alterando para view de Gerente.");
+      } else {
+        //funcionarioView.setVisible(true);
+        System.out.println(
+          "Acesso concedido. Alterando para view de Funcionário."
+        );
+      }
+    }
+  }
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			String username = loginView.getUsername();
-			String password = loginView.getPassword();
+  class RegisterListener implements ActionListener {
 
-			var c = credenciais.find(username);
-			if (c == null) return;
+    @Override
+    public void actionPerformed(ActionEvent e) {
+      String username = loginView.getUsername();
+      String password = loginView.getPassword();
 
-			if (c.isValid()) {
-				// TODO: View-usuario encontrado.
-				System.out.println("Usuário já cadastrado.");
-				return;
-			}
+      var c = credenciais.find(username);
+      if (c == null) return;
 
-			// Gerentes devem ser setados manualmente:
-			credenciais.adicionarCredencial(username, username, password, false);
-			credenciais.salvarCredenciais();
+      if (c.isValid()) {
+        // TODO: View-usuario encontrado.
+        System.out.println("Usuário já cadastrado.");
+        return;
+      }
 
-			// Após o cadastro, passa diretamente para tela de funcionário:
-			// loginView.setVisible(false);
-			// funcionarioView.setVisible(true);
+      // Gerentes devem ser setados manualmente:
+      credenciais.adicionarCredencial(username, username, password, false);
+      credenciais.salvarCredenciais();
 
-			System.out.println("Usuário inserido com sucesso. Navegando para View de funcionários.");
-		}
+      // Após o cadastro, passa diretamente para tela de funcionário:
+      // loginView.setVisible(false);
+      // funcionarioView.setVisible(true);
 
-	}
+      System.out.println(
+        "Usuário inserido com sucesso. Navegando para View de funcionários."
+      );
+    }
+  }
 
-	class FuncionarioModelListener implements TableModelListener {
+  class FuncionarioModelListener implements TableModelListener {
 
-		@Override
-		public void tableChanged(TableModelEvent e) {
-			int row = adminView.getColabTable().getSelectedRow();
-			if (row < 0) return;
+    @Override
+    public void tableChanged(TableModelEvent e) {
+      int row = adminView.getColabTable().getSelectedRow();
+      if (row < 0) return;
 
-			String[] rowAtual = adminView.getRowAt(row);
+      String[] rowAtual = adminView.getRowAt(row);
 
-			boolean administrador = rowAtual[3].toLowerCase().equals("administrador")
-				? true
-				: false;
+      boolean administrador = rowAtual[3].toLowerCase().equals("administrador")
+        ? true
+        : false;
 
-			credenciais.update(
-				rowAtual[0],
-				new Credencial(rowAtual[0], rowAtual[1], rowAtual[2], administrador)
-			);
-			credenciais.salvarCredenciais();
-		}
+      credenciais.update(
+        rowAtual[0],
+        new Credencial(rowAtual[0], rowAtual[1], rowAtual[2], administrador)
+      );
+      credenciais.salvarCredenciais();
+    }
+  }
 
-	}
+  class CredentialRegisterListener implements ActionListener {
 
-	class CredentialRegisterListener implements ActionListener {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+      cadastroView.setVisible(true);
+    }
+  }
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-		cadastroView.setVisible(true);
-		}
+  class CadastrarListener implements ActionListener {
 
-	}
+    @Override
+    public void actionPerformed(ActionEvent e) {
+      var nome = cadastroView.getUser();
+      var usuario = cadastroView.getUsername();
+      var senha = cadastroView.getPassword();
+      var administrador = cadastroView.getAdm();
 
-	class CadastrarListener implements ActionListener {
+      DefaultTableModel model = (DefaultTableModel) adminView
+        .getColabTable()
+        .getModel();
+      model.addRow(
+        new Object[] {
+          nome,
+          usuario,
+          senha,
+          administrador ? "Administrador" : "Funcionário",
+        }
+      );
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			var nome = cadastroView.getUser();
-			var usuario = cadastroView.getUsername();
-			var senha = cadastroView.getPassword();
-			var administrador = cadastroView.getAdm();
+      credenciais.adicionarCredencial(nome, usuario, senha, administrador);
+      credenciais.salvarCredenciais();
 
-			DefaultTableModel model = (DefaultTableModel) adminView.getColabTable().getModel();
-			model.addRow(new Object[] {nome,usuario,senha,administrador ? "Administrador" : "Funcionário",});
+      cadastroView.clearView();
+      cadastroView.setVisible(false);
+    }
+  }
 
-			credenciais.adicionarCredencial(nome, usuario, senha, administrador);
-			credenciais.salvarCredenciais();
+  class ProductModelListener implements TableModelListener {
 
-			cadastroView.clearView();
-			cadastroView.setVisible(false);
-		}
+    @Override
+    public void tableChanged(TableModelEvent e) {
+      int row = adminView.getProductTable().getSelectedRow();
+      if (row < 0) return;
 
-	}
+      String[] rowAtual = adminView.getRowProductAt(row);
 
-<<<<<<< HEAD
       bancoDadosProdutos.update(
         rowAtual[0],
         new Produto(
@@ -197,9 +204,10 @@ public class Controller {
           Integer.parseInt(rowAtual[4])
         )
       );
-      bancoDadosProdutos.salvarProdutos();
+
+      credenciais.salvarCredenciais();
     }
-  
+  }
 
   class RegisterProductListener implements ActionListener {
 
@@ -208,22 +216,4 @@ public class Controller {
       cadastroProduto.setVisible(true);
     }
   }
-=======
-	class ProductModelListener implements TableModelListener {
-
-		@Override
-		public void tableChanged(TableModelEvent e) {
-			int row = adminView.getProductTable().getSelectedRow();
-			if (row < 0) return;
-
-			String[] rowAtual = adminView.getRowProductAt(row);
-
-			bancoDadosProdutos.update(rowAtual[0], new Produto(Integer.parseInt(rowAtual[0]), rowAtual[1], 
-				Float.parseFloat(rowAtual[2]), rowAtual[3], Integer.parseInt(rowAtual[4])));
-			
-			credenciais.salvarCredenciais();
-		}
-		
-	}
->>>>>>> b2838d93ff65895bec93a823a9e2f5a09572e049
 }
