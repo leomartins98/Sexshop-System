@@ -10,109 +10,100 @@ import loja.Produto;
 
 public class BancoDadosProdutos {
 
-  private ArrayList<Produto> produtos;
-  private String caminhoDoArquivo;
+	private ArrayList<Produto> produtos;
+	private String caminhoDoArquivo;
 
-  public BancoDadosProdutos(String caminhoDoArquivo) {
-    this.produtos = this.lerProdutos(caminhoDoArquivo);
-    this.caminhoDoArquivo = caminhoDoArquivo;
-  }
+	public BancoDadosProdutos(String caminhoDoArquivo) {
+		this.produtos = this.lerProdutos(caminhoDoArquivo);
+		this.caminhoDoArquivo = caminhoDoArquivo;
+	}
 
-  public ArrayList<Produto> getProdutos() {
-    return produtos;
-  }
+	public ArrayList<Produto> getProdutos() {
+		return produtos;
+	}
 
-  public void adicionarProduto(
-    int id,
-    String nome,
-    Float preco,
-    String descricao,
-    int qtd
-  ) {
-    this.produtos.add(new Produto(id, nome, preco, descricao, qtd));
-  }
+	public void adicionarProduto(int id, String nome, Float preco, String descricao, int qtd) {
+		this.produtos.add(new Produto(id, nome, preco, descricao, qtd));
+	}
 
-  public Produto find(String nomeProduto) {
-    for (Produto produto : produtos) {
-      if (produto.getNome().equals(nomeProduto)) {
-        return produto;
-      }
-    }
-    return null;
-  }
+	public Produto find(String nomeProduto) {
+		for (Produto produto : produtos) {
+			if (produto.getNome().equals(nomeProduto)) {
+				return produto;
+			}
+		}
+		return null;
+	}
 
-  public void update(int id, Produto novoProduto) {
-    int index = 0;
-    for (Produto produto : this.produtos) {
-      if (id == produto.getID()) {
-        produtos.set(index, novoProduto);
-        return;
-      }
-      index++;
-    }
-    System.out.println("Usuário não encontrado ao tentar editar produto");
-  }
+	public void update(int id, Produto novoProduto) {
+		int index = 0;
+		for (Produto produto : this.produtos) {
+			if (id == produto.getID()) {
+				produtos.set(index, novoProduto);
+				return;
+			}
+			index++;
+		}
+		System.out.println("Usuário não encontrado ao tentar editar produto");
+	}
 
-  public void salvarProdutos() {
-    try {
-      FileWriter writter = new FileWriter(this.caminhoDoArquivo);
+	public void salvarProdutos() {
+		try {
+			FileWriter writter = new FileWriter(this.caminhoDoArquivo);
 
-      for (Produto produto : this.produtos) {
-        writter.write(
-          Integer.toString(produto.getID()) +
-          "," +
-          produto.getNome() +
-          "," +
-          Float.toString(produto.getPreco()) +
-          "," +
-          produto.getDescricao() +
-          "," +
-          produto.getQtd() +
-          "\n"
-        );
-      }
+			for (Produto produto : this.produtos) {
+				writter.write(
+						Integer.toString(produto.getID()) +
+								"," +
+								produto.getNome() +
+								"," +
+								Float.toString(produto.getPreco()) +
+								"," +
+								produto.getDescricao() +
+								"," +
+								produto.getQtd() +
+								"\n");
+			}
 
-      writter.close();
-      System.out.println("Arquivo produto modificado.");
-    } catch (IOException e) {
-      System.out.println("Um erro ocorreu ao tentar salvar os produtos.");
-      e.printStackTrace();
-    }
-  }
+			writter.close();
+			System.out.println("Arquivo produto modificado.");
+		} catch (IOException e) {
+			System.out.println("Um erro ocorreu ao tentar salvar os produtos.");
+			e.printStackTrace();
+		}
+	}
 
-  private ArrayList<Produto> lerProdutos(String caminhoDoArquivo) {
-    ArrayList<Produto> resultados = new ArrayList<Produto>();
+	private ArrayList<Produto> lerProdutos(String caminhoDoArquivo) {
+		ArrayList<Produto> resultados = new ArrayList<Produto>();
 
-    try {
-      File file = new File(caminhoDoArquivo);
-      Scanner reader = new Scanner(file);
+		try {
+			File file = new File(caminhoDoArquivo);
+			Scanner reader = new Scanner(file);
 
-      while (reader.hasNextLine()) {
-        String data = reader.nextLine();
+			while (reader.hasNextLine()) {
+				String data = reader.nextLine();
 
-        if (data.startsWith("#")) continue;
+				if (data.startsWith("#"))
+					continue;
 
-        String[] args = data.split(",");
+				String[] args = data.split(",");
 
-        resultados.add(
-          new Produto(
-            Integer.parseInt(args[0]),
-            args[1],
-            Float.parseFloat(args[2]),
-            args[3],
-            Integer.parseInt(args[4])
-          )
-        );
-      }
+				resultados.add(
+						new Produto(
+								Integer.parseInt(args[0]),
+								args[1],
+								Float.parseFloat(args[2]),
+								args[3],
+								Integer.parseInt(args[4])));
+			}
 
-      reader.close();
-    } catch (FileNotFoundException e) {
-      System.out.println(
-        "Um erro ocorreu ao abrir o arquivo: " + caminhoDoArquivo
-      );
-      e.printStackTrace();
-    }
+			reader.close();
+		} catch (FileNotFoundException e) {
+			System.out.println(
+					"Um erro ocorreu ao abrir o arquivo: " + caminhoDoArquivo);
+			e.printStackTrace();
+		}
 
-    return resultados;
-  }
+		return resultados;
+	}
 }
