@@ -1,4 +1,4 @@
-package loja;
+package images.loja;
 
 public enum TipoPagamento {
     CARTAO,

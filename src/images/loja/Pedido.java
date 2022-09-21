@@ -1,4 +1,4 @@
-package loja;
+package images.loja;
 
 import java.util.ArrayList;
 

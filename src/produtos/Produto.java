@@ -1,4 +1,4 @@
-package loja;
+package produtos;
 
 public class Produto {
 
@@ -7,22 +7,19 @@ public class Produto {
 	private String nome;
 	private float preco;
 	private String descricao;
-	private int qtd;
 
-	public Produto(String nome, float preco, String descricao, int qtd) {
+	public Produto(String nome, float preco, String descricao) {
 		this.id = incremento++;
 		this.nome = nome;
 		this.preco = preco;
 		this.descricao = descricao;
-		this.qtd = qtd;
 	}
 
-	public Produto(int id, String nome, float preco, String descricao, int qtd) {
+	public Produto(int id, String nome, float preco, String descricao) {
 		this.id = id;
 		this.nome = nome;
 		this.preco = preco;
 		this.descricao = descricao;
-		this.qtd = qtd;
 	}
 
 	public int getID() {
@@ -57,11 +54,11 @@ public class Produto {
 		this.descricao = descricao;
 	}
 
-	public int getQtd() {
-		return qtd;
+	public static void setIncremento(int incremento) {
+		Produto.incremento = incremento;
 	}
 
-	public void setQtd(int qtd) {
-		this.qtd = qtd;
+	public static int getIncremento() {
+		return incremento;
 	}
 }

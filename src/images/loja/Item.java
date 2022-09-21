@@ -1,4 +1,6 @@
-package loja;
+package images.loja;
+
+import produtos.Produto;
 
 public class Item {
     private Produto produto;

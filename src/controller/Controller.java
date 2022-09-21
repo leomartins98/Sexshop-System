@@ -1,13 +1,16 @@
 package controller;
 
 import credencial.*;
+import images.loja.Item;
+
 import java.awt.event.*;
 import javax.swing.JFrame;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
-import loja.Produto;
+
 import produtos.BancoDadosProdutos;
+import produtos.Produto;
 import view.TelaAdmin;
 import view.TelaCadastroColab;
 import view.TelaCadastroInvent;
@@ -26,8 +29,12 @@ public class Controller {
 	public Controller(TelaLogin login, TelaAdmin adminView, Credenciais credenciais, BancoDadosProdutos bancoDadosProdutos) {
 		this.loginView = login;
 		this.adminView = adminView;
+
 		this.cadastroView = new TelaCadastroColab();
+		this.cadastroView.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+
 		this.cadastroProduto = new TelaCadastroInvent();
+		this.cadastroProduto.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 
 		this.bancoDadosProdutos = bancoDadosProdutos;
 		this.credenciais = credenciais;
@@ -35,15 +42,19 @@ public class Controller {
 		this.loginView.addLoginListener(new LoginListener());
 
 		for (Credencial c : this.credenciais.getCredenciais())
-			this.adminView.adicionarFuncionarioNaTabela(
-					c.usuario,
-					c.usuario,
-					c.senha,
-					c.administrador);
+			this.adminView.adicionarFuncionarioNaTabela(c.usuario, c.usuario, c.senha, c.administrador);
+
+		for (Item item : this.bancoDadosProdutos.getItems())
+		{
+			var produto = item.getProduto();
+			this.adminView.adicionarProdutoNaTabela(produto.getID(), produto.getNome(), produto.getPreco(), produto.getDescricao(), item.getQuantidade());
+		}
 
 		this.adminView.addListenerToTable(new FuncionarioModelListener());
+
 		this.adminView.addCredentialRegisterListener(
 				new CredentialRegisterListener());
+
 		this.cadastroView.addCadastrarListener(new CadastrarListener());
 
 		this.adminView.addProductToTable(new ProductModelListener());
@@ -187,14 +198,13 @@ public class Controller {
 
 			String[] rowAtual = adminView.getRowProductAt(row);
 
-			bancoDadosProdutos.update(
-					Integer.parseInt(rowAtual[0]),
-					new Produto(
-							Integer.parseInt(rowAtual[0]),
-							rowAtual[1],
-							Float.parseFloat(rowAtual[2]),
-							rowAtual[3],
-							Integer.parseInt(rowAtual[4])));
+			var id = Integer.parseInt(rowAtual[0]);
+			var nome = rowAtual[1];
+			var preco =  Float.parseFloat(rowAtual[2]);
+			var desc = rowAtual[3];
+			var qtd = Integer.parseInt(rowAtual[4]);
+
+			bancoDadosProdutos.update(id, new Item(new Produto(nome, preco, desc), qtd));
 
 			bancoDadosProdutos.salvarProdutos();
 		}
@@ -212,7 +222,7 @@ public class Controller {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			var id = 0;
+			var id = Produto.getIncremento();
 			var nome = cadastroProduto.getNome();
 			var preco = cadastroProduto.getPreco();
 			var descricao = cadastroProduto.getDescricao();
@@ -223,7 +233,7 @@ public class Controller {
 					.getModel();
 			model.addRow(new Object[] { id, nome, preco, descricao, qtd });
 
-			bancoDadosProdutos.adicionarProduto(id, nome, preco, descricao, qtd);
+			bancoDadosProdutos.adicionarProduto(nome, preco, descricao, qtd);
 			bancoDadosProdutos.salvarProdutos();
 
 			cadastroProduto.clearView();

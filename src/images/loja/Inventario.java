@@ -1,6 +1,8 @@
-package loja;
+package images.loja;
 
 import java.util.ArrayList;
+
+import produtos.Produto;
 
 public class Inventario {
     private ArrayList<Item> itensDisponiveis;
