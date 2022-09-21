@@ -148,6 +148,14 @@ public class TelaCadastroColab extends javax.swing.JFrame {
         jButton1.addActionListener(l);
     }
 
+    public void clearView() {
+        jTextField4.setText("");
+        jTextField5.setText("");
+        jTextField6.setText("");
+        jRadioButton3.setSelected(false);
+        jRadioButton4.setSelected(false);
+    }
+
     public String getUser() {
         return jTextField4.getText();
     }
