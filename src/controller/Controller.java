@@ -48,10 +48,21 @@ public class Controller {
 		);
 		this.cadastroView.addCadastrarListener(new CadastrarListener());
 
+<<<<<<< HEAD
     this.adminView.addProductToTable(new ProductModelListener());
     this.adminView.addProductRegisterListener(new RegisterProductListener());
     this.cadastroView.addCadastrarListener(new CadastrarListener());
   }
+=======
+		this.adminView.addProductToTable(new FuncionarioModelListener());
+		this.adminView.addCredentialRegisterListener(
+			new CredentialRegisterListener()
+		);
+		
+		this.cadastroView.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		this.cadastroView.addCadastrarListener(new CadastrarListener());
+  	}
+>>>>>>> b2838d93ff65895bec93a823a9e2f5a09572e049
 
 	public void execute() {
 		this.loginView.setVisible(true);
@@ -175,6 +186,7 @@ public class Controller {
 
 	}
 
+<<<<<<< HEAD
       bancoDadosProdutos.update(
         rowAtual[0],
         new Produto(
@@ -196,4 +208,22 @@ public class Controller {
       cadastroProduto.setVisible(true);
     }
   }
+=======
+	class ProductModelListener implements TableModelListener {
+
+		@Override
+		public void tableChanged(TableModelEvent e) {
+			int row = adminView.getProductTable().getSelectedRow();
+			if (row < 0) return;
+
+			String[] rowAtual = adminView.getRowProductAt(row);
+
+			bancoDadosProdutos.update(rowAtual[0], new Produto(Integer.parseInt(rowAtual[0]), rowAtual[1], 
+				Float.parseFloat(rowAtual[2]), rowAtual[3], Integer.parseInt(rowAtual[4])));
+			
+			credenciais.salvarCredenciais();
+		}
+		
+	}
+>>>>>>> b2838d93ff65895bec93a823a9e2f5a09572e049
 }
