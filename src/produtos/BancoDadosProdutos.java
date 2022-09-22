@@ -17,7 +17,7 @@ public class BancoDadosProdutos {
 	public BancoDadosProdutos(String caminhoDoArquivo) {
 		this.items = this.lerProdutos(caminhoDoArquivo);
 		this.caminhoDoArquivo = caminhoDoArquivo;
-		Produto.setIncremento(this.items.size() + 1);
+		//Produto.setIncremento(this.items.size() + 1);
 	}
 
 	public ArrayList<Item> getItems() {

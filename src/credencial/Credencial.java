@@ -1,6 +1,8 @@
 package credencial;
 
-public class Credencial
+import serialization.SerializableID;
+
+public class Credencial extends SerializableID
 {
     public String nome;
     public String usuario;

@@ -2,7 +2,8 @@ package serialization;
 import java.io.Serializable;
 
 public abstract class SerializableID implements Serializable {
-    protected Integer ID;
+    private static Integer nextID = 0;
+    protected Integer ID = nextID++;
 
     public Integer getID() {
         return ID; 

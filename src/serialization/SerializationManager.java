@@ -11,7 +11,7 @@ import java.io.File;
 
 import java.util.ArrayList;
 
-public final class SerializationManager<T extends SerializableID> {
+public class SerializationManager<T extends SerializableID> {
 
     private ArrayList<T> objects;
     private String databaseName;
@@ -75,6 +75,22 @@ public final class SerializationManager<T extends SerializableID> {
         return null;
     }
 
+    public T find(String fieldName, String field) {
+        for(var object : this.objects)
+        {
+            try {
+                if(object.getClass().getField(fieldName).toString().equals(field))
+                    return object;
+            } catch (NoSuchFieldException e) {
+                e.printStackTrace();
+            } catch (SecurityException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return null;
+    }
+
     public void update(int ID, T newObject) {
         int index = 0;
         for (var object : this.objects) {
@@ -82,6 +98,26 @@ public final class SerializationManager<T extends SerializableID> {
                 this.objects.set(index, newObject);
                 return;
             }
+            index++;
+        }
+
+        System.out.println("Unable to update object in the " + databaseName + " database.");
+    }
+
+    public void update(String fieldName, String field, T newObject) {
+        int index = 0;
+        for (var object : this.objects) {
+            try {
+                if (object.getClass().getField(fieldName).toString().equals(field)) {
+                    this.objects.set(index, newObject);
+                    return;
+                }
+            } catch (NoSuchFieldException e) {
+                e.printStackTrace();
+            } catch (SecurityException e) {
+                e.printStackTrace();
+            }
+            
             index++;
         }
 

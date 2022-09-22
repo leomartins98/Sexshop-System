@@ -12,6 +12,7 @@ import javax.swing.table.DefaultTableModel;
 
 import produtos.BancoDadosProdutos;
 import produtos.Produto;
+import serialization.SerializationManager;
 import view.TelaAdmin;
 import view.TelaCadastroColab;
 import view.TelaCadastroInvent;
@@ -24,10 +25,10 @@ public class Controller {
 	private TelaLogin loginView;
 	private TelaAdmin adminView;
 
-	private Credenciais credenciais;
+	private SerializationManager<Credencial> credenciais;
 	private BancoDadosProdutos bancoDadosProdutos;
 
-	public Controller(TelaLogin login, TelaAdmin adminView, Credenciais credenciais, BancoDadosProdutos bancoDadosProdutos) {
+	public Controller(TelaLogin login, TelaAdmin adminView, SerializationManager<Credencial> credenciais, BancoDadosProdutos bancoDadosProdutos) {
 		this.loginView = login;
 		this.adminView = adminView;
 
@@ -42,7 +43,7 @@ public class Controller {
 
 		this.loginView.addLoginListener(new LoginListener());
 
-		for (Credencial c : this.credenciais.getCredenciais())
+		for (Credencial c : this.credenciais.get())
 			this.adminView.adicionarFuncionarioNaTabela(c.usuario, c.usuario, c.senha, c.administrador);
 
 		for (Item item : this.bancoDadosProdutos.getItems())
@@ -74,7 +75,7 @@ public class Controller {
 			String username = loginView.getUsername();
 			String password = loginView.getPassword();
 
-			var c = credenciais.find(username);
+			Credencial c = credenciais.find("usuario", username);
 
 			if (c == null || !c.isValid()) {
 				JOptionPane.showMessageDialog(loginView,
@@ -119,10 +120,12 @@ public class Controller {
 					? true
 					: false;
 
-			credenciais.update(
-					rowAtual[0],
-					new Credencial(rowAtual[0], rowAtual[1], rowAtual[2], administrador));
-			credenciais.salvarCredenciais();
+			var nome = rowAtual[0];
+			var username = rowAtual[1];
+			var password = rowAtual[2];
+
+			credenciais.update("usuario", nome, new Credencial(nome, username, password, administrador));
+			credenciais.save();
 		}
 	}
 
@@ -154,8 +157,8 @@ public class Controller {
 							administrador ? "Administrador" : "Funcionário",
 					});
 
-			credenciais.adicionarCredencial(nome, usuario, senha, administrador);
-			credenciais.salvarCredenciais();
+			credenciais.add(new Credencial(nome, usuario, senha, administrador));
+			credenciais.save();
 
 			cadastroView.clearView();
 			cadastroView.setVisible(false);
@@ -196,7 +199,7 @@ public class Controller {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			var id = Produto.getIncremento();
+			//var id = Produto.getIncremento();
 			var nome = cadastroProduto.getNome();
 			var preco = cadastroProduto.getPreco();
 			var descricao = cadastroProduto.getDescricao();
@@ -205,7 +208,7 @@ public class Controller {
 			DefaultTableModel model = (DefaultTableModel) adminView
 					.getProductTable()
 					.getModel();
-			model.addRow(new Object[] { id, nome, preco, descricao, qtd });
+			model.addRow(new Object[] { 0, nome, preco, descricao, qtd });
 
 			bancoDadosProdutos.adicionarProduto(nome, preco, descricao, qtd);
 			bancoDadosProdutos.salvarProdutos();
