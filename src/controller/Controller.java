@@ -5,6 +5,7 @@ import images.loja.Item;
 
 import java.awt.event.*;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
@@ -76,14 +77,18 @@ public class Controller {
 			var c = credenciais.find(username);
 
 			if (c == null || !c.isValid()) {
-				// TODO: View-usuario nao encontrado.
-				System.out.println("Usuario nao encontrado");
+				JOptionPane.showMessageDialog(loginView,
+				"O usuário" + username + " não está cadastrado no banco de dados. Verifique com um administrador.",
+				"Erro de Autenticação",
+				JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 
 			if (!c.senha.equals(password)) {
-				// TODO: View-Senha incorreta.
-				System.out.println("Senha incorreta");
+				JOptionPane.showMessageDialog(loginView,
+				"Senha incorreta. Tente novamente.",
+				"Erro de Autenticação",
+				JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 
@@ -92,7 +97,6 @@ public class Controller {
 
 			if (c.administrador == true) {
 				adminView.setVisible(true);
-				System.out.println("Acesso concedido. Alterando para view de Gerente.");
 			} else {
 				// funcionarioView.setVisible(true);
 				System.out.println(
