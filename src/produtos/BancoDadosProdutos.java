@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import images.loja.Item;
+import loja.Item;
 
 public class BancoDadosProdutos {
 

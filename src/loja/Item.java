@@ -1,4 +1,4 @@
-package images.loja;
+package loja;
 
 import produtos.Produto;
 

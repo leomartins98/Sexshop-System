@@ -1,7 +1,7 @@
 package controller;
 
 import credencial.*;
-import images.loja.Item;
+import loja.Item;
 
 import java.awt.event.*;
 import javax.swing.JFrame;
