@@ -3,7 +3,7 @@ package loja;
 import java.util.ArrayList;
 
 public class Pedido {
-        
+
     private TipoPagamento tipoDePagamento;
     private double totalPedido = 0;
     private ArrayList<Item> itens;

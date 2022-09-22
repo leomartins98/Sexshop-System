@@ -1,5 +1,7 @@
 package loja;
 
+import produtos.Produto;
+
 public class Item {
     private Produto produto;
     private Integer quantidade;
@@ -33,4 +35,3 @@ public class Item {
         this.quantidade -= quantidade;
     }
 }
-

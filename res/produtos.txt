@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 1,Dildo,1230.0,Um dildo de tamanho medio,34
 2,Vibrador,34.5,Não é avião mas te leva nas alturas.,2
 3,Ovo Masturbador,17.99,Sensação de prazer garantida!,3
@@ -5,3 +6,12 @@
 0,Vibrador Plus,17.5,Apesar de pequeno traz um grande prazer.,6
 0,Piroca do Guga,10.0,Piroquinha soca fofo,4
 0,Maçã,18.0,Muito boa	,150
+=======
+1|Dildo|1230.0|Um dildo de tamanho medio|34
+2|Vibrador|34.5|Não é avião mas te leva nas alturas.|2
+3|Ovo Masturbador|17.99|Sensação de prazer garantida!|3
+4|Pirocão do Paulo|10.0|Pirocão forte|6
+5|Vibrador Plus|17.5|Apesar de pequeno traz um grande prazer.|6
+6|Piroca do Guga|10.0|Piroquinha soca fofo|4
+7|54|54.0|5|50
+>>>>>>> a091154274cf4d3d3e8040327619d245e8527004
