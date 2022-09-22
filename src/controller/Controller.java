@@ -105,36 +105,6 @@ public class Controller {
 		}
 	}
 
-	class RegisterListener implements ActionListener {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			String username = loginView.getUsername();
-			String password = loginView.getPassword();
-
-			var c = credenciais.find(username);
-			if (c == null)
-				return;
-
-			if (c.isValid()) {
-				// TODO: View-usuario encontrado.
-				System.out.println("Usuário já cadastrado.");
-				return;
-			}
-
-			// Gerentes devem ser setados manualmente:
-			credenciais.adicionarCredencial(username, username, password, false);
-			credenciais.salvarCredenciais();
-
-			// Após o cadastro, passa diretamente para tela de funcionário:
-			// loginView.setVisible(false);
-			// funcionarioView.setVisible(true);
-
-			System.out.println(
-					"Usuário inserido com sucesso. Navegando para View de funcionários.");
-		}
-	}
-
 	class FuncionarioModelListener implements TableModelListener {
 
 		@Override
