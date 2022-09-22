@@ -37,7 +37,7 @@ public final class SerializationManager<T extends SerializableID> {
     private void initialize() {
         File fileCheck = new File(this.filepath);
         if(fileCheck.isFile())
-            this.fetch();
+            this.objects = read();
         else {
             try {
                 if(fileCheck.createNewFile())
@@ -126,9 +126,5 @@ public final class SerializationManager<T extends SerializableID> {
         } 
 
         return results;
-    }
-
-    public void fetch() {
-        this.objects = read();
     }
 }
