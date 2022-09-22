@@ -1,5 +1,13 @@
 # Sexshop System
-Sexshop System é um sistema de administração de inventário e controle de produtos de um sexshop fictício feito em Java utilizando o Swing para implementar sua interface gráfica. 
+Sexshop System é um sistema de administração de inventário e controle de produtos de um sexshop fictício feito em Java utilizando o Swing para implementar sua interface gráfica. Esse projeto tem por finalidade compor a nota final da disciplina de Projeto de Programas.
+
+## Equipe
+A equipe é composta pelos colaboradores deste repositório, e tem como orientador o [Prof. Luis Cuevas](https://github.com/lcuevasr).
+A conta dos participantes foram dispostas a seguir:
+ * [Paulo Castro](https://github.com/DatDarkAlpaca)
+ * [Leonardo Martins](https://github.com/leomartins98)
+ * [Gustavo de Araújo](https://github.com/Gugarauj07)
+
 
 # Instalação
 ## Pré-requisitos
