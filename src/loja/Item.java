@@ -1,8 +1,11 @@
 package loja;
 
 import produtos.Produto;
+import java.io.Serializable;
 
-public class Item {
+public class Item implements Serializable {
+    private static final long serialVersionUID = 10L;
+
     private Produto produto;
     private Integer quantidade;
 
@@ -33,5 +36,9 @@ public class Item {
 
     public void subQuantidade(int quantidade) {
         this.quantidade -= quantidade;
+    }
+
+    public String toString() {
+        return this.produto.toString() + " | Quantidade: " + this.getQuantidade();
     }
 }

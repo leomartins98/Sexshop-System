@@ -353,19 +353,9 @@ public class TelaAdmin extends javax.swing.JFrame {
 	} // GEN-LAST:event_jButton4ActionPerformed
 
 	// Métodos Adicionais:
-	public void adicionarFuncionarioNaTabela(
-			String nome,
-			String username,
-			String senha,
-			boolean administrador) {
+	public void adicionarFuncionarioNaTabela(String nome, String username, String senha, boolean administrador) {
 		javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
-		model.addRow(
-				new Object[] {
-						nome,
-						username,
-						senha,
-						administrador ? "Administrador" : "Funcionário",
-				});
+		model.addRow(new Object[] {nome, username, senha, administrador ? "Administrador" : "Funcionário", });
 	}
 
 	public void addListenerToTable(TableModelListener l) {

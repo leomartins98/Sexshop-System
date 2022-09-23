@@ -1,20 +1,19 @@
 package produtos;
 
-import serialization.SerializableID;
+import java.io.Serializable;
 
-public class Produto extends SerializableID {
+public class Produto implements Serializable {
+
+	private static final long serialVersionUID = 12L;
+
+	private Integer id;
 
 	private String nome;
 	private float preco;
 	private String descricao;
 
-	public Produto(String nome, float preco, String descricao) {
-		this.nome = nome;
-		this.preco = preco;
-		this.descricao = descricao;
-	}
-
 	public Produto(int id, String nome, float preco, String descricao) {
+		this.id = id;
 		this.nome = nome;
 		this.preco = preco;
 		this.descricao = descricao;
@@ -42,5 +41,13 @@ public class Produto extends SerializableID {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+
+	public String toString() {
+		return this.nome + " | $" + this.preco + " | " + this.descricao;
+	}
+
+	public Integer getID() {
+		return this.id;
 	}
 }

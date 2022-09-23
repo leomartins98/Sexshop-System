@@ -2,6 +2,8 @@ package serialization;
 
 import java.io.FileNotFoundException;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.io.ObjectInputStream;
 import java.io.FileOutputStream;
 import java.io.FileInputStream;
@@ -11,7 +13,7 @@ import java.io.File;
 
 import java.util.ArrayList;
 
-public class SerializationManager<T extends SerializableID> {
+public class SerializationManager<T extends Serializable> {
 
     private ArrayList<T> objects;
     private String databaseName;
@@ -66,61 +68,74 @@ public class SerializationManager<T extends SerializableID> {
         this.objects.add(object);
     }
 
-    public T find(int ID) {
-        for (var object : this.objects) {
-            if (object.getID() == ID)
-                return object;
-        }
-
-        return null;
-    }
-
-    public T find(String fieldName, String field) {
-        for(var object : this.objects)
-        {
+    public T find(String fieldName, String fieldValue) {
+        for(var object : this.objects) {
             try {
-                if(object.getClass().getField(fieldName).toString().equals(field))
+                var field = object.getClass().getField(fieldName);
+
+                if(field.get(object).toString().equals(fieldValue)) {
                     return object;
+                }
+
             } catch (NoSuchFieldException e) {
                 e.printStackTrace();
             } catch (SecurityException e) {
                 e.printStackTrace();
+            } catch(IllegalAccessException e){
+                e.printStackTrace();
             }
         }
 
         return null;
     }
 
-    public void update(int ID, T newObject) {
-        int index = 0;
-        for (var object : this.objects) {
-            if (object.ID == ID) {
-                this.objects.set(index, newObject);
-                return;
-            }
-            index++;
-        }
-
-        System.out.println("Unable to update object in the " + databaseName + " database.");
-    }
-
-    public void update(String fieldName, String field, T newObject) {
-        int index = 0;
-        for (var object : this.objects) {
+    public void update(String fieldName, String fieldValue, T newObject) {
+        var index = 0;
+        for(var object : this.objects) {
             try {
-                if (object.getClass().getField(fieldName).toString().equals(field)) {
+                var field = object.getClass().getField(fieldName);
+                
+                if(field.get(object).equals(fieldValue)) {
                     this.objects.set(index, newObject);
                     return;
                 }
+
+                index++;
+
             } catch (NoSuchFieldException e) {
                 e.printStackTrace();
             } catch (SecurityException e) {
                 e.printStackTrace();
+            } catch(IllegalAccessException e){
+                e.printStackTrace();
             }
-            
-            index++;
         }
+        
+        System.out.println("Unable to update object in the " + databaseName + " database.");
+    }
 
+    public void update(Field fieldName, String fieldValue, T newObject) {
+        var index = 0;
+        for(var object : this.objects) {
+            try {
+                var field = object.getClass().getField(fieldName);
+                
+                if(field.get(object).equals(fieldValue)) {
+                    this.objects.set(index, newObject);
+                    return;
+                }
+
+                index++;
+
+            } catch (NoSuchFieldException e) {
+                e.printStackTrace();
+            } catch (SecurityException e) {
+                e.printStackTrace();
+            } catch(IllegalAccessException e){
+                e.printStackTrace();
+            }
+        }
+        
         System.out.println("Unable to update object in the " + databaseName + " database.");
     }
 
