@@ -1,22 +1,20 @@
 package controller;
 
+import javax.swing.event.TableModelListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.event.TableModelEvent;
+import javax.swing.JOptionPane;
+import javax.swing.JFrame;
+import java.awt.event.*;
+
+import serialization.SerializationManager;
+import produtos.Produto;
 import credencial.*;
 import loja.Item;
 
-import java.awt.event.*;
-import java.lang.reflect.Field;
-
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
-import javax.swing.table.DefaultTableModel;
-
-import produtos.Produto;
-import serialization.SerializationManager;
-import view.TelaAdmin;
-import view.TelaCadastroColab;
 import view.TelaCadastroInvent;
+import view.TelaCadastroColab;
+import view.TelaAdmin;
 import view.TelaLogin;
 
 public class Controller {

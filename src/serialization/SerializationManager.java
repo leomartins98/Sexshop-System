@@ -2,13 +2,12 @@ package serialization;
 
 import java.io.FileNotFoundException;
 import java.io.ObjectOutputStream;
-import java.io.Serializable;
-import java.lang.reflect.Field;
 import java.io.ObjectInputStream;
 import java.io.FileOutputStream;
 import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.Serializable;
 import java.io.EOFException;
+import java.io.IOException;
 import java.io.File;
 
 import java.util.ArrayList;
