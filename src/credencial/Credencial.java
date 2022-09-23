@@ -1,7 +1,11 @@
 package credencial;
 
-public class Credencial
+import java.io.Serializable;
+
+public class Credencial implements Serializable
 {
+    private static final long serialVersionUID = 49L;
+
     public String nome;
     public String usuario;
     public String senha;
@@ -18,9 +22,5 @@ public class Credencial
     public String toString() {
         String isAdm = this.administrador ? "Sim" : "Nao";
         return "Nome: "  + this.nome + " | Usuario: " + this.usuario + " | Senha: " + this.senha + " | Administrador: " + isAdm;
-    }
-
-    public boolean isValid() {
-        return this != null;
     }
 }

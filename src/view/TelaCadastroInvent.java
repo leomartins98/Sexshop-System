@@ -140,8 +140,8 @@ public class TelaCadastroInvent extends javax.swing.JFrame {
     return jTextField4.getText();
   }
 
-  public float getPreco() {
-    return Float.parseFloat(jTextField5.getText());
+  public String getPreco() {
+    return jTextField5.getText();
   }
 
   public String getDescricao() {

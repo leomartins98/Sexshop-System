@@ -1,20 +1,20 @@
 package controller;
 
+import javax.swing.event.TableModelListener;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.event.TableModelEvent;
+import javax.swing.JOptionPane;
+import javax.swing.JFrame;
+import java.awt.event.*;
+
+import serialization.SerializationManager;
+import produtos.Produto;
 import credencial.*;
 import loja.Item;
 
-import java.awt.event.*;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
-import javax.swing.table.DefaultTableModel;
-
-import produtos.BancoDadosProdutos;
-import produtos.Produto;
-import view.TelaAdmin;
-import view.TelaCadastroColab;
 import view.TelaCadastroInvent;
+import view.TelaCadastroColab;
+import view.TelaAdmin;
 import view.TelaLogin;
 
 public class Controller {
@@ -24,43 +24,58 @@ public class Controller {
 	private TelaLogin loginView;
 	private TelaAdmin adminView;
 
-	private Credenciais credenciais;
-	private BancoDadosProdutos bancoDadosProdutos;
+	private SerializationManager<Credencial> credenciais;
+	private SerializationManager<Item> itemsLoja;
 
-	public Controller(TelaLogin login, TelaAdmin adminView, Credenciais credenciais, BancoDadosProdutos bancoDadosProdutos) {
+	public Controller(TelaLogin login, TelaAdmin adminView, SerializationManager<Credencial> credenciais, SerializationManager<Item> itemsLoja) {
 		this.loginView = login;
 		this.adminView = adminView;
 
+		this.itemsLoja = itemsLoja;
+		this.credenciais = credenciais;
+
+		this.initializeViews();
+
+		this.initializeModels();
+
+		this.initializeViewListeners();
+	}
+
+	private void initializeViews() {
+		this.adminView.setLocationRelativeTo(null);
+
 		this.cadastroView = new TelaCadastroColab();
 		this.cadastroView.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		this.cadastroView.setLocationRelativeTo(null);
 
 		this.cadastroProduto = new TelaCadastroInvent();
 		this.cadastroProduto.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		this.cadastroProduto.setLocationRelativeTo(null);
+	}
 
-		this.bancoDadosProdutos = bancoDadosProdutos;
-		this.credenciais = credenciais;
-
+	private void initializeViewListeners() {
 		this.loginView.addLoginListener(new LoginListener());
 
-		for (Credencial c : this.credenciais.getCredenciais())
-			this.adminView.adicionarFuncionarioNaTabela(c.usuario, c.usuario, c.senha, c.administrador);
-
-		for (Item item : this.bancoDadosProdutos.getItems())
-		{
-			var produto = item.getProduto();
-			this.adminView.adicionarProdutoNaTabela(produto.getID(), produto.getNome(), produto.getPreco(), produto.getDescricao(), item.getQuantidade());
-		}
-
 		this.adminView.addListenerToTable(new FuncionarioModelListener());
-
-		this.adminView.addCredentialRegisterListener(
-				new CredentialRegisterListener());
+		this.adminView.addCredentialRegisterListener(new CredentialRegisterListener());
 
 		this.cadastroView.addCadastrarListener(new CadastrarListener());
 
 		this.adminView.addProductToTable(new ProductModelListener());
 		this.adminView.addProductRegisterListener(new RegisterProductListener());
+		
 		this.cadastroProduto.addCadastrarProduto(new CadastrarProdutoListener());
+	}
+
+	private void initializeModels() {
+		for (Credencial c : this.credenciais.get())
+			this.adminView.adicionarFuncionarioNaTabela(c.usuario, c.usuario, c.senha, c.administrador);
+
+		for (Item item : this.itemsLoja.get())
+		{
+			var produto = item.getProduto();
+			this.adminView.adicionarProdutoNaTabela(produto.getID(), produto.getNome(), produto.getPreco(), produto.getDescricao(), item.getQuantidade());
+		}
 	}
 
 	public void execute() {
@@ -74,11 +89,11 @@ public class Controller {
 			String username = loginView.getUsername();
 			String password = loginView.getPassword();
 
-			var c = credenciais.find(username);
+			Credencial c = credenciais.find("usuario", username);
 
-			if (c == null || !c.isValid()) {
+			if (c == null) {
 				JOptionPane.showMessageDialog(loginView,
-				"O usuário" + username + " não está cadastrado no banco de dados. Verifique com um administrador.",
+				"O usuário " + username + " não está cadastrado no banco de dados. Verifique com um administrador.",
 				"Erro de Autenticação",
 				JOptionPane.ERROR_MESSAGE);
 				return;
@@ -97,11 +112,8 @@ public class Controller {
 
 			if (c.administrador == true) {
 				adminView.setVisible(true);
-			} else {
-				// funcionarioView.setVisible(true);
-				System.out.println(
-						"Acesso concedido. Alterando para view de Funcionário.");
-			}
+			} else 
+				System.out.println("Acesso concedido. Alterando para view de Funcionário.");
 		}
 	}
 
@@ -115,14 +127,14 @@ public class Controller {
 
 			String[] rowAtual = adminView.getRowAt(row);
 
-			boolean administrador = rowAtual[3].toLowerCase().equals("administrador")
-					? true
-					: false;
+			boolean administrador = rowAtual[3].toLowerCase().equals("administrador") ? true : false;
 
-			credenciais.update(
-					rowAtual[0],
-					new Credencial(rowAtual[0], rowAtual[1], rowAtual[2], administrador));
-			credenciais.salvarCredenciais();
+			var nome = rowAtual[0];
+			var username = rowAtual[1];
+			var password = rowAtual[2];
+
+			credenciais.update("usuario", nome, new Credencial(nome, username, password, administrador));
+			credenciais.save();
 		}
 	}
 
@@ -143,22 +155,59 @@ public class Controller {
 			var senha = cadastroView.getPassword();
 			var administrador = cadastroView.getAdm();
 
-			DefaultTableModel model = (DefaultTableModel) adminView
-					.getColabTable()
-					.getModel();
-			model.addRow(
-					new Object[] {
-							nome,
-							usuario,
-							senha,
-							administrador ? "Administrador" : "Funcionário",
-					});
+			if(nome.isBlank() || usuario.isBlank() || senha.isBlank()) {
+				JOptionPane.showMessageDialog(loginView,
+					"Por favor, preencha todos os dados do funcionário.",
+					"Erro de Cadastro",
+					JOptionPane.ERROR_MESSAGE);
+				return;
+			}
 
-			credenciais.adicionarCredencial(nome, usuario, senha, administrador);
-			credenciais.salvarCredenciais();
+			DefaultTableModel model = (DefaultTableModel) adminView.getColabTable().getModel();
+			model.addRow(new Object[] { nome, usuario, senha, administrador ? "Administrador" : "Funcionário" });
+
+			credenciais.add(new Credencial(nome, usuario, senha, administrador));
+			credenciais.save();
 
 			cadastroView.clearView();
 			cadastroView.setVisible(false);
+		}
+	}
+
+	class RegisterProductListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			cadastroProduto.setVisible(true);
+		}
+	}
+
+	class CadastrarProdutoListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			int id = adminView.getProductTable().getRowCount();
+			String nome = cadastroProduto.getNome();
+			String preco = cadastroProduto.getPreco();
+			String descricao = cadastroProduto.getDescricao();
+			int qtd = cadastroProduto.getQuantidade();
+
+			if(nome.isBlank() || preco.isBlank() || descricao.isBlank()) {
+				JOptionPane.showMessageDialog(loginView,
+					"Por favor, preencha todos os dados do produto.",
+					"Erro de Cadastro",
+					JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+
+			DefaultTableModel model = (DefaultTableModel) adminView.getProductTable().getModel();
+			model.addRow(new Object[] { id, nome, preco, descricao, qtd });
+
+			itemsLoja.add(new Item(new Produto(id, nome, Float.parseFloat(preco), descricao), qtd));
+			itemsLoja.save();
+
+			cadastroProduto.clearView();
+			cadastroProduto.setVisible(false);
 		}
 	}
 
@@ -178,40 +227,16 @@ public class Controller {
 			var desc = rowAtual[3];
 			var qtd = Integer.parseInt(rowAtual[4]);
 
-			bancoDadosProdutos.update(id, new Item(new Produto(nome, preco, desc), qtd));
+			for(var c : itemsLoja.getClass().getFields()) {
+				System.out.println(c.getName());
+			}
 
-			bancoDadosProdutos.salvarProdutos();
+			itemsLoja.update("id", rowAtual[0], new Item(new Produto(id, nome, preco, desc), qtd));
+			itemsLoja.save();
 		}
 	}
 
-	class RegisterProductListener implements ActionListener {
+	
 
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			cadastroProduto.setVisible(true);
-		}
-	}
-
-	class CadastrarProdutoListener implements ActionListener {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			var id = Produto.getIncremento();
-			var nome = cadastroProduto.getNome();
-			var preco = cadastroProduto.getPreco();
-			var descricao = cadastroProduto.getDescricao();
-			var qtd = cadastroProduto.getQuantidade();
-
-			DefaultTableModel model = (DefaultTableModel) adminView
-					.getProductTable()
-					.getModel();
-			model.addRow(new Object[] { id, nome, preco, descricao, qtd });
-
-			bancoDadosProdutos.adicionarProduto(nome, preco, descricao, qtd);
-			bancoDadosProdutos.salvarProdutos();
-
-			cadastroProduto.clearView();
-			cadastroProduto.setVisible(false);
-		}
-	}
+	
 }
