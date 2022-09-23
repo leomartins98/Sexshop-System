@@ -148,7 +148,7 @@
         </Container>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Quantidade:"/>
+            <Property name="text" type="java.lang.String" value="Quantidade em Estoque:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JSpinner" name="jSpinner1">
