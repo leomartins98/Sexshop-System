@@ -72,7 +72,7 @@ public class SerializationManager<T extends Serializable> {
         for(var object : this.objects) {
             try {
                 var field = object.getClass().getField(fieldName);
-
+                
                 if(field.get(object).toString().equals(fieldValue)) {
                     return object;
                 }
@@ -94,33 +94,8 @@ public class SerializationManager<T extends Serializable> {
         for(var object : this.objects) {
             try {
                 var field = object.getClass().getField(fieldName);
-                
-                if(field.get(object).equals(fieldValue)) {
-                    this.objects.set(index, newObject);
-                    return;
-                }
 
-                index++;
-
-            } catch (NoSuchFieldException e) {
-                e.printStackTrace();
-            } catch (SecurityException e) {
-                e.printStackTrace();
-            } catch(IllegalAccessException e){
-                e.printStackTrace();
-            }
-        }
-        
-        System.out.println("Unable to update object in the " + databaseName + " database.");
-    }
-
-    public void update(Field fieldName, String fieldValue, T newObject) {
-        var index = 0;
-        for(var object : this.objects) {
-            try {
-                var field = object.getClass().getField(fieldName);
-                
-                if(field.get(object).equals(fieldValue)) {
+                if(field.get(object).toString().equals(fieldValue)) {
                     this.objects.set(index, newObject);
                     return;
                 }

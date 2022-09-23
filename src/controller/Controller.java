@@ -4,6 +4,8 @@ import credencial.*;
 import loja.Item;
 
 import java.awt.event.*;
+import java.lang.reflect.Field;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.event.TableModelEvent;
@@ -231,11 +233,8 @@ public class Controller {
 				System.out.println(c.getName());
 			}
 
-			itemsLoja.update("produto.id", rowAtual[0], new Item(new Produto(id, nome, preco, desc), qtd));
-			for(var c : itemsLoja.get()){
-				System.out.println(c.toString());
-			}
-			//itemsLoja.save();
+			itemsLoja.update("id", rowAtual[0], new Item(new Produto(id, nome, preco, desc), qtd));
+			itemsLoja.save();
 		}
 	}
 
