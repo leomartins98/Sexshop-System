@@ -42,6 +42,7 @@ public class TelaPreviewItem extends javax.swing.JFrame {
 
         Nome_Prod.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         Nome_Prod.setText("*Nome do Produto*");
+        Nome_Prod.setToolTipText("");
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel10.setText("Preço:");
