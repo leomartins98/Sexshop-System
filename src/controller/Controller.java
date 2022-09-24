@@ -84,6 +84,7 @@ public class Controller {
 		this.loginView.setVisible(true);
 	}
 
+	// Login:
 	class LoginListener implements ActionListener {
 
 		@Override
@@ -119,6 +120,7 @@ public class Controller {
 		}
 	}
 
+	// Table listeners:
 	class FuncionarioModelListener implements TableModelListener {
 
 		@Override
@@ -140,16 +142,57 @@ public class Controller {
 			credenciais.update("usuario", nome, new Credencial(nome, username, password, administrador));
 			credenciais.save();
 		}
+	
 	}
 
+	class ProductModelListener implements TableModelListener {
+
+		@Override
+		public void tableChanged(TableModelEvent e) {
+			int row = adminView.getProductTable().getSelectedRow();
+			if (row < 0)
+				return;
+
+			String[] rowAtual = adminView.getRowProductAt(row);
+			if(rowAtual == null)
+				return;
+
+			var id = Integer.parseInt(rowAtual[0]);
+			var nome = rowAtual[1];
+			var preco =  Float.parseFloat(rowAtual[2]);
+			var desc = rowAtual[3];
+			var qtd = Integer.parseInt(rowAtual[4]);
+
+			for(var c : itemsLoja.getClass().getFields()) {
+				System.out.println(c.getName());
+			}
+
+			itemsLoja.update("id", rowAtual[0], new Item(new Produto(id, nome, preco, desc), qtd));
+			itemsLoja.save();
+		}
+	
+	}
+
+	// Popup listeners:
 	class CredentialRegisterListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			cadastroView.setVisible(true);
 		}
+
 	}
 
+	class RegisterProductListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			cadastroProduto.setVisible(true);
+		}
+	
+	}
+
+	// Register listeners:
 	class CadastrarListener implements ActionListener {
 
 		@Override
@@ -175,14 +218,6 @@ public class Controller {
 
 			cadastroView.clearView();
 			cadastroView.setVisible(false);
-		}
-	}
-
-	class RegisterProductListener implements ActionListener {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			cadastroProduto.setVisible(true);
 		}
 	}
 
@@ -213,34 +248,6 @@ public class Controller {
 			cadastroProduto.clearView();
 			cadastroProduto.setVisible(false);
 		}
-	}
-
-	class ProductModelListener implements TableModelListener {
-
-		@Override
-		public void tableChanged(TableModelEvent e) {
-			int row = adminView.getProductTable().getSelectedRow();
-			if (row < 0)
-				return;
-
-			String[] rowAtual = adminView.getRowProductAt(row);
-			if(rowAtual == null)
-				return;
-
-			var id = Integer.parseInt(rowAtual[0]);
-			var nome = rowAtual[1];
-			var preco =  Float.parseFloat(rowAtual[2]);
-			var desc = rowAtual[3];
-			var qtd = Integer.parseInt(rowAtual[4]);
-
-			for(var c : itemsLoja.getClass().getFields()) {
-				System.out.println(c.getName());
-			}
-
-			itemsLoja.update("id", rowAtual[0], new Item(new Produto(id, nome, preco, desc), qtd));
-			itemsLoja.save();
-		}
-	
 	}
 
 	// Remove Actors:
