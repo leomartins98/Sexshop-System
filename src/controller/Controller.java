@@ -63,6 +63,8 @@ public class Controller {
 
 		this.adminView.addProductToTable(new ProductModelListener());
 		this.adminView.addProductRegisterListener(new RegisterProductListener());
+		this.adminView.addRemoveUserListener(new RemoveUserListener());
+		this.adminView.addRemoveProductListener(new RemoveProductListener());
 		
 		this.cadastroProduto.addCadastrarProduto(new CadastrarProdutoListener());
 	}
@@ -126,6 +128,8 @@ public class Controller {
 				return;
 
 			String[] rowAtual = adminView.getRowAt(row);
+			if(rowAtual == null)
+				return;
 
 			boolean administrador = rowAtual[3].toLowerCase().equals("administrador") ? true : false;
 
@@ -220,6 +224,8 @@ public class Controller {
 				return;
 
 			String[] rowAtual = adminView.getRowProductAt(row);
+			if(rowAtual == null)
+				return;
 
 			var id = Integer.parseInt(rowAtual[0]);
 			var nome = rowAtual[1];
@@ -234,9 +240,43 @@ public class Controller {
 			itemsLoja.update("id", rowAtual[0], new Item(new Produto(id, nome, preco, desc), qtd));
 			itemsLoja.save();
 		}
+	
 	}
 
-	
+	// Remove Actors:
+	class RemoveUserListener implements ActionListener {
 
-	
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			int row = adminView.getColabTable().getSelectedRow();
+			if (row < 0)
+				return;
+
+			String[] rowAtual = adminView.getRowAt(row);
+
+			credenciais.remove("usuario", rowAtual[0]);
+			credenciais.save();
+			
+			((DefaultTableModel)adminView.getColabTable().getModel()).removeRow(row);
+		}
+
+	}
+
+	class RemoveProductListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			int row = adminView.getProductTable().getSelectedRow();
+			if (row < 0)
+				return;
+
+			String[] rowAtual = adminView.getRowProductAt(row);
+			
+			itemsLoja.remove("id", rowAtual[0]);
+			itemsLoja.save();
+			
+			DefaultTableModel model = (DefaultTableModel)adminView.getProductTable().getModel();
+			model.removeRow(row);
+		}
+	}
 }

@@ -113,6 +113,31 @@ public class SerializationManager<T extends Serializable> {
         System.out.println("Unable to update object in the " + databaseName + " database.");
     }
 
+    public void remove(String fieldName, String fieldValue) {
+        var index = 0;
+        for(var object : this.objects) {
+            try {
+                var field = object.getClass().getField(fieldName);
+
+                if(field.get(object).toString().equals(fieldValue)) {
+                    this.objects.remove(index);
+                    return;
+                }
+
+                index++;
+
+            } catch (NoSuchFieldException e) {
+                e.printStackTrace();
+            } catch (SecurityException e) {
+                e.printStackTrace();
+            } catch(IllegalAccessException e){
+                e.printStackTrace();
+            }
+        }
+        
+        System.out.println("Unable to remove object in the " + databaseName + " database.");
+    }
+
     // File management:
     public void save() {
         try {
