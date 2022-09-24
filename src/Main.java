@@ -16,12 +16,7 @@ public class Main {
 		TelaLogin loginView = new TelaLogin();
 		TelaAdmin adminView = new TelaAdmin();
 
-		Controller controller = new Controller(
-			loginView,
-			adminView,
-			credenciais,
-			produtos);
-			
+		Controller controller = new Controller(loginView, adminView, credenciais, produtos);
 		controller.execute();
 	}
 }

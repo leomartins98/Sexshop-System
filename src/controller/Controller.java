@@ -13,12 +13,14 @@ import credencial.*;
 import loja.Item;
 
 import view.TelaCadastroInvent;
+import view.TelaCadastroVenda;
 import view.TelaCadastroColab;
 import view.TelaAdmin;
 import view.TelaLogin;
 
 public class Controller {
 
+	private TelaCadastroVenda cadastroVenda;
 	private TelaCadastroInvent cadastroProduto;
 	private TelaCadastroColab cadastroView;
 	private TelaLogin loginView;
@@ -51,6 +53,10 @@ public class Controller {
 		this.cadastroProduto = new TelaCadastroInvent();
 		this.cadastroProduto.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.cadastroProduto.setLocationRelativeTo(null);
+
+		this.cadastroVenda = new TelaCadastroVenda();
+		this.cadastroVenda.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		this.cadastroVenda.setLocationRelativeTo(null);
 	}
 
 	private void initializeViewListeners() {
@@ -116,7 +122,7 @@ public class Controller {
 			if (c.administrador == true) {
 				adminView.setVisible(true);
 			} else 
-				System.out.println("Acesso concedido. Alterando para view de Funcionário.");
+				cadastroVenda.setVisible(true);
 		}
 	}
 
