@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 import java.awt.event.*;
 
 import serialization.SerializationManager;
-import produtos.Produto;
+import loja.Produto;
 import credencial.*;
 import loja.Item;
 
