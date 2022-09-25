@@ -1,7 +1,6 @@
-import serialization.SerializationManager;
+import serialization.CredentialManager;
+import serialization.ItemManager;
 import controller.Controller;
-import credencial.*;
-import loja.Item;
 
 import view.TelaAdmin;
 import view.TelaLogin;
@@ -9,8 +8,8 @@ import view.TelaLogin;
 public class Main {
 	public static void main(String[] args) {
 		// Bancos de dados:
-		SerializationManager<Credencial> credenciais = new SerializationManager<Credencial>("res/credentials.obj", "credentials");
-		SerializationManager<Item> produtos = new SerializationManager<Item>("res/produtos.obj", "products");
+		CredentialManager credenciais = new CredentialManager("res/credentials.obj");
+		ItemManager produtos = new ItemManager("res/produtos.obj");
 
 		// Views:
 		TelaLogin loginView = new TelaLogin();
