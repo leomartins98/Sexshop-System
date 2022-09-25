@@ -1,4 +1,4 @@
-package produtos;
+package loja;
 
 import java.io.Serializable;
 
