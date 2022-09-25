@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class SerializationManager<T extends Serializable> {
 
-    private ArrayList<T> objects;
+    protected ArrayList<T> objects;
     private String databaseName;
     private String filepath;
 
