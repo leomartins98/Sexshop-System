@@ -18,6 +18,8 @@ Para executar o sistema, você primeiro precisará instalar o kit de desenvolvim
  * [Apache NetBeans 13](https://netbeans.apache.org/download/nb13/nb13.html)
  * [Git](https://git-scm.com/downloads)
 
+Caso esteja utilizando a IDE VS Code, você precisará necessariamente instalar o Netbeans, e alterar o arquivo `.vscode\settings.json` com o diretório do Netbeans.
+
 ## Download
 A fim de acessar os arquivos do projeto, primeiro você deve baixá-los. A opção mais adequada é cloná-lo utilizando o git. Entretanto, você também pode baixar o projeto clicando [aqui](https://github.com/leomartins98/Sexshop-System/archive/refs/heads/main.zip). Para clonar o repositório em sua máquina, utilize o seguinte comando:
 
