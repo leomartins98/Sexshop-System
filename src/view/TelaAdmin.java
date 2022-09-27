@@ -106,7 +106,7 @@ public class TelaAdmin extends javax.swing.JFrame {
         jButton5.setText("Excluir");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+               // jButton5ActionPerformed(evt);
             }
         });
 
@@ -215,7 +215,7 @@ public class TelaAdmin extends javax.swing.JFrame {
         jButton6.setText("Excluir");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+         //       jButton6ActionPerformed(evt);
             }
         });
 
@@ -223,7 +223,7 @@ public class TelaAdmin extends javax.swing.JFrame {
         jButton7.setText("Cadastrar");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+             //   jButton7ActionPerformed(evt);
             }
         });
 
