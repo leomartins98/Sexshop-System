@@ -1,6 +1,7 @@
 
 package view.Components;
 
+import view.Models.ModelMenu;
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics;

@@ -1,6 +1,7 @@
 
 package view.Components;
 
+import view.Models.ModelMenu;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
