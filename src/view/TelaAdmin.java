@@ -441,30 +441,52 @@ public class TelaAdmin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-	// Métodos Adicionais:
-	public void adicionarFuncionarioNaTabela(String nome, String username, String senha, boolean administrador) {
+	// Table Insertion:
+	public void addToWorkerTable(String nome, String username, String senha, boolean administrador) {
 		javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
 		model.addRow(new Object[] {nome, username, senha, administrador ? "Administrador" : "Funcionário", });
 	}
 
-	public void addListenerToTable(TableModelListener l) {
+    public void addToProductTable(int id, String nome, float preco, String descricao, int qtd) {
+		javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable2.getModel();
+		model.addRow(new Object[] { id, nome, preco, descricao, qtd });
+	}
+
+    // Table Model Listeners:
+	public void addWorkerTableModelListener(TableModelListener l) {
 		javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
 		model.addTableModelListener(l);
 	}
 
-	public void addCredentialRegisterListener(ActionListener l) {
+    public void addProductTableModelListener(TableModelListener l) {
+		javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable2.getModel();
+		model.addTableModelListener(l);
+	}
+
+    // Popup Listener:
+	public void addCredentialPopupListener(ActionListener l) {
 		jButton2.addActionListener(l);
 	}
 
-    public void addProvedorRegisterListener(ActionListener l) {
+    public void addProviderPopupListener(ActionListener l) {
 		jButton8.addActionListener(l);
 	}
 
+    public void addProductPopupListener(ActionListener l) {
+		jButton3.addActionListener(l);
+	}
+
+    // Table Getters:
 	public javax.swing.JTable getColabTable() {
 		return jTable1;
 	}
 
-	public String[] getRowAt(int row) {
+    public javax.swing.JTable getProductTable() {
+		return jTable2;
+	}
+
+    // Row Getters:
+	public String[] getWorkerRowAt(int row) {
         if(row + 1 > jTable1.getRowCount())
             return null;
 
@@ -476,32 +498,7 @@ public class TelaAdmin extends javax.swing.JFrame {
 		return resultados;
 	}
 
-	// Cadastro dos Produtos
-
-	public void adicionarProdutoNaTabela(
-			int id,
-			String nome,
-			float preco,
-			String descricao,
-			int qtd) {
-		javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable2.getModel();
-		model.addRow(new Object[] { id, nome, preco, descricao, qtd });
-	}
-
-	public void addProductToTable(TableModelListener l) {
-		javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable2.getModel();
-		model.addTableModelListener(l);
-	}
-
-	public void addProductRegisterListener(ActionListener l) {
-		jButton3.addActionListener(l);
-	}
-
-	public javax.swing.JTable getProductTable() {
-		return jTable2;
-	}
-
-	public String[] getRowProductAt(int row) {
+	public String[] getProductRowAt(int row) {
         if(row + 1 > jTable2.getRowCount())
             return null;
 
@@ -513,11 +510,12 @@ public class TelaAdmin extends javax.swing.JFrame {
         return resultados;
     }
 
-    public void addRemoveUserListener(ActionListener l) {
+    // Remove Listeners:
+    public void addUserRemoveListener(ActionListener l) {
         jButton4.addActionListener(l);
     }
 
-    public void addRemoveProductListener(ActionListener l) {
+    public void addProductRemoveListener(ActionListener l) {
         jButton5.addActionListener(l);
     }
 

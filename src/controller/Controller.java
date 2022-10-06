@@ -74,29 +74,33 @@ public class Controller {
 	private void initializeViewListeners() {
 		this.loginView.addLoginListener(new LoginListener());
 
-		// Popup Listeners:
-		this.adminView.addListenerToTable(new FuncionarioModelListener());
-		this.adminView.addCredentialRegisterListener(new CredentialRegisterListener());
-		this.adminView.addProvedorRegisterListener(new ProvedorRegisterListener());
+		// Table Model Listener:
+		this.adminView.addWorkerTableModelListener(new WorkerTableModelListener());
+		this.adminView.addProductTableModelListener(new ProductTableModelListener());
 
+		// Popup Listener:
+		this.adminView.addCredentialPopupListener(new CredentialPopupListener());
+		this.adminView.addProviderPopupListener(new ProviderPopupListener());
+		this.adminView.addProductPopupListener(new ProductPopupListener());
+
+		// Remove Listeners:
+		this.adminView.addUserRemoveListener(new UserRemoveListener());
+		this.adminView.addProductRemoveListener(new ProductRemoveListener());
+
+		// Cadastro View:
 		this.cadastroView.addCadastrarListener(new CadastrarListener());
-
-		this.adminView.addProductToTable(new ProductModelListener());
-		this.adminView.addProductRegisterListener(new RegisterProductListener());
-		this.adminView.addRemoveUserListener(new RemoveUserListener());
-		this.adminView.addRemoveProductListener(new RemoveProductListener());
-		
 		this.cadastroProduto.addCadastrarProduto(new CadastrarProdutoListener());
 	}
 
+	// Initializers:
 	private void initializeModels() {
 		for (Credencial c : this.credenciais.get())
-			this.adminView.adicionarFuncionarioNaTabela(c.usuario, c.usuario, c.senha, c.administrador);
+			this.adminView.addToWorkerTable(c.usuario, c.usuario, c.senha, c.administrador);
 
 		for (Item item : this.itemsLoja.get())
 		{
 			var produto = item.getProduto();
-			this.adminView.adicionarProdutoNaTabela(produto.getID(), produto.getNome(), produto.getPreco(), produto.getDescricao(), item.getQuantidade());
+			this.adminView.addToProductTable(produto.getID(), produto.getNome(), produto.getPreco(), produto.getDescricao(), item.getQuantidade());
 		}
 	}
 
@@ -141,7 +145,7 @@ public class Controller {
 	}
 
 	// Table listeners:
-	class FuncionarioModelListener implements TableModelListener {
+	class WorkerTableModelListener implements TableModelListener {
 
 		@Override
 		public void tableChanged(TableModelEvent e) {
@@ -149,7 +153,7 @@ public class Controller {
 			if (row < 0)
 				return;
 
-			String[] rowAtual = adminView.getRowAt(row);
+			String[] rowAtual = adminView.getWorkerRowAt(row);
 			if(rowAtual == null)
 				return;
 
@@ -165,7 +169,7 @@ public class Controller {
 	
 	}
 
-	class ProductModelListener implements TableModelListener {
+	class ProductTableModelListener implements TableModelListener {
 
 		@Override
 		public void tableChanged(TableModelEvent e) {
@@ -173,7 +177,7 @@ public class Controller {
 			if (row < 0)
 				return;
 
-			String[] rowAtual = adminView.getRowProductAt(row);
+			String[] rowAtual = adminView.getProductRowAt(row);
 			if(rowAtual == null)
 				return;
 
@@ -194,7 +198,7 @@ public class Controller {
 	}
 
 	// Popup listeners:
-	class CredentialRegisterListener implements ActionListener {
+	class CredentialPopupListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -203,7 +207,7 @@ public class Controller {
 
 	}
 
-	class RegisterProductListener implements ActionListener {
+	class ProductPopupListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -212,7 +216,7 @@ public class Controller {
 	
 	}
 
-	class ProvedorRegisterListener implements ActionListener {
+	class ProviderPopupListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -280,7 +284,7 @@ public class Controller {
 	}
 
 	// Remove Actors:
-	class RemoveUserListener implements ActionListener {
+	class UserRemoveListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -288,7 +292,7 @@ public class Controller {
 			if (row < 0)
 				return;
 
-			String[] rowAtual = adminView.getRowAt(row);
+			String[] rowAtual = adminView.getWorkerRowAt(row);
 
 			credenciais.remove("usuario", rowAtual[0]);
 			credenciais.save();
@@ -298,7 +302,7 @@ public class Controller {
 
 	}
 
-	class RemoveProductListener implements ActionListener {
+	class ProductRemoveListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -306,7 +310,7 @@ public class Controller {
 			if (row < 0)
 				return;
 
-			String[] rowAtual = adminView.getRowProductAt(row);
+			String[] rowAtual = adminView.getProductRowAt(row);
 			
 			itemsLoja.remove("id", rowAtual[0]);
 			itemsLoja.save();
