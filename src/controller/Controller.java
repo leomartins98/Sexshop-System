@@ -221,8 +221,6 @@ public class Controller {
 
 	}
 
- 	//ProvedorRegisterListener
-
 	// Register listeners:
 	class CadastrarListener implements ActionListener {
 
