@@ -2,6 +2,9 @@ package controller;
 
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
+
+import controller.listener_facade.RemoveListenerFacade;
+
 import javax.swing.event.TableModelEvent;
 import javax.swing.JOptionPane;
 import javax.swing.JFrame;
@@ -35,6 +38,9 @@ public class Controller {
 	private CredentialManager credenciais;
 	private ItemManager itemsLoja;
 
+	// Facades:
+	RemoveListenerFacade removeListenerFacade;
+
 	public Controller(TelaLogin login, TelaAdmin adminView, CredentialManager credenciais, ItemManager itemsLoja) {
 		this.loginView = login;
 		this.adminView = adminView;
@@ -43,10 +49,11 @@ public class Controller {
 		this.credenciais = credenciais;
 
 		this.initializeViews();
-
 		this.initializeModels();
-
 		this.initializeViewListeners();
+
+		// Facades:
+		removeListenerFacade = new RemoveListenerFacade(this.adminView, this.credenciais, this.itemsLoja);
 	}
 
 	private void initializeViews() {
@@ -82,8 +89,7 @@ public class Controller {
 		this.adminView.addProductPopupListener(new ProductPopupListener());
 
 		// Remove Listeners:
-		this.adminView.addUserRemoveListener(new UserRemoveListener());
-		this.adminView.addProductRemoveListener(new ProductRemoveListener());
+		
 
 		// Cadastro View:
 		this.cadastroView.addCadastrarListener(new CadastrarListener());
@@ -105,6 +111,8 @@ public class Controller {
 	public void execute() {
 		this.loginView.setVisible(true);
 	}
+
+	// **************** Listeners **************** \\
 
 	// Login:
 	class LoginListener implements ActionListener {
@@ -282,39 +290,5 @@ public class Controller {
 	}
 
 	// Remove Actors:
-	class UserRemoveListener implements ActionListener {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			int row = adminView.getColabTable().getSelectedRow();
-			if (row < 0)
-				return;
-
-			String[] rowAtual = adminView.getWorkerRowAt(row);
-
-			credenciais.remove("usuario", rowAtual[0]);
-			credenciais.save();
-			
-			((DefaultTableModel)adminView.getColabTable().getModel()).removeRow(row);
-		}
-
-	}
-
-	class ProductRemoveListener implements ActionListener {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			int row = adminView.getProductTable().getSelectedRow();
-			if (row < 0)
-				return;
-
-			String[] rowAtual = adminView.getProductRowAt(row);
-			
-			itemsLoja.remove("id", rowAtual[0]);
-			itemsLoja.save();
-			
-			DefaultTableModel model = (DefaultTableModel)adminView.getProductTable().getModel();
-			model.removeRow(row);
-		}
-	}
+	
 }
