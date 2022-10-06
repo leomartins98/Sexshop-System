@@ -4,6 +4,7 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 
 import controller.listener_facade.RemoveListenerFacade;
+import controller.listener_facade.TableListenerFacade;
 
 import javax.swing.event.TableModelEvent;
 import javax.swing.JOptionPane;
@@ -39,7 +40,8 @@ public class Controller {
 	private ItemManager itemsLoja;
 
 	// Facades:
-	RemoveListenerFacade removeListenerFacade;
+	private RemoveListenerFacade removeListenerFacade;
+	private TableListenerFacade tableListenerFacade;
 
 	public Controller(TelaLogin login, TelaAdmin adminView, CredentialManager credenciais, ItemManager itemsLoja) {
 		this.loginView = login;
@@ -54,6 +56,10 @@ public class Controller {
 
 		// Facades:
 		removeListenerFacade = new RemoveListenerFacade(this.adminView, this.credenciais, this.itemsLoja);
+		tableListenerFacade = new TableListenerFacade(this.adminView, this.credenciais, this.itemsLoja);
+
+		removeListenerFacade.execute();
+		tableListenerFacade.execute();
 	}
 
 	private void initializeViews() {
@@ -78,10 +84,6 @@ public class Controller {
 
 	private void initializeViewListeners() {
 		this.loginView.addLoginListener(new LoginListener());
-
-		// Table Model Listener:
-		this.adminView.addWorkerTableModelListener(new WorkerTableModelListener());
-		this.adminView.addProductTableModelListener(new ProductTableModelListener());
 
 		// Popup Listener:
 		this.adminView.addCredentialPopupListener(new CredentialPopupListener());
@@ -148,59 +150,6 @@ public class Controller {
 			} else 
 				cadastroVenda.setVisible(true);
 		}
-	}
-
-	// Table listeners:
-	class WorkerTableModelListener implements TableModelListener {
-
-		@Override
-		public void tableChanged(TableModelEvent e) {
-			int row = adminView.getColabTable().getSelectedRow();
-			if (row < 0)
-				return;
-
-			String[] rowAtual = adminView.getWorkerRowAt(row);
-			if(rowAtual == null)
-				return;
-
-			boolean administrador = rowAtual[3].toLowerCase().equals("administrador") ? true : false;
-
-			var nome = rowAtual[0];
-			var username = rowAtual[1];
-			var password = rowAtual[2];
-
-			credenciais.update("usuario", nome, new Credencial(nome, username, password, administrador));
-			credenciais.save();
-		}
-	
-	}
-
-	class ProductTableModelListener implements TableModelListener {
-
-		@Override
-		public void tableChanged(TableModelEvent e) {
-			int row = adminView.getProductTable().getSelectedRow();
-			if (row < 0)
-				return;
-
-			String[] rowAtual = adminView.getProductRowAt(row);
-			if(rowAtual == null)
-				return;
-
-			var id = Integer.parseInt(rowAtual[0]);
-			var nome = rowAtual[1];
-			var preco =  Float.parseFloat(rowAtual[2]);
-			var desc = rowAtual[3];
-			var qtd = Integer.parseInt(rowAtual[4]);
-
-			for(var c : itemsLoja.getClass().getFields()) {
-				System.out.println(c.getName());
-			}
-
-			itemsLoja.update("id", rowAtual[0], new Item(new Produto(id, nome, preco, desc), qtd));
-			itemsLoja.save();
-		}
-	
 	}
 
 	// Popup listeners:
@@ -289,6 +238,4 @@ public class Controller {
 		}
 	}
 
-	// Remove Actors:
-	
 }

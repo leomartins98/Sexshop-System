@@ -17,7 +17,9 @@ public class RemoveListenerFacade {
         this.adminView = adminView;
         this.credenciais = credenciais;
         this.items = items;
+    }
 
+    public void execute() {
         this.adminView.addUserRemoveListener(new UserRemoveListener());
 		this.adminView.addProductRemoveListener(new ProductRemoveListener());
     }
