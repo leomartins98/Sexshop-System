@@ -1,5 +1,6 @@
 import serialization.CredentialManager;
 import serialization.ItemManager;
+import serialization.ProvedorManager;
 import controller.Controller;
 
 import view.TelaAdmin;
@@ -10,12 +11,13 @@ public class Main {
 		// Bancos de dados:
 		CredentialManager credenciais = new CredentialManager("res/credentials.obj");
 		ItemManager produtos = new ItemManager("res/produtos.obj");
+		ProvedorManager provedores = new ProvedorManager("res/provedores.obj");
 
 		// Views:
 		TelaLogin loginView = new TelaLogin();
 		TelaAdmin adminView = new TelaAdmin();
 
-		Controller controller = new Controller(loginView, adminView, credenciais, produtos);
+		Controller controller = new Controller(loginView, adminView, credenciais, produtos, provedores);
 		controller.execute();
 	}
 }

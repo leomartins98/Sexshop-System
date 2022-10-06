@@ -24,6 +24,9 @@ public class TelaAdmin extends javax.swing.JFrame {
 
 		DefaultTableModel model2 = (DefaultTableModel) jTable2.getModel();
 		model2.setRowCount(0);
+
+        DefaultTableModel model4 = (DefaultTableModel) jTable4.getModel();
+		model4.setRowCount(0);
 	}
 
 	/**
@@ -483,6 +486,10 @@ public class TelaAdmin extends javax.swing.JFrame {
 
 	public void addCredentialRegisterListener(ActionListener l) {
 		jButton2.addActionListener(l);
+	}
+
+    public void addProvedorRegisterListener(ActionListener l) {
+		jButton8.addActionListener(l);
 	}
 
 	public javax.swing.JTable getColabTable() {
