@@ -488,6 +488,10 @@ public class TelaAdmin extends javax.swing.JFrame {
 		jButton2.addActionListener(l);
 	}
 
+    public void addProvedorRegisterListener(ActionListener l) {
+		jButton8.addActionListener(l);
+	}
+
 	public javax.swing.JTable getColabTable() {
 		return jTable1;
 	}

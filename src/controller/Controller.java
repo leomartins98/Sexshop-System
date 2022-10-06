@@ -16,6 +16,7 @@ import loja.Item;
 import view.TelaCadastroInvent;
 import view.TelaCadastroVenda;
 import view.TelaCadastroColab;
+import view.TelaCadastroFornecedor;
 import view.TelaAdmin;
 import view.TelaLogin;
 
@@ -24,6 +25,8 @@ public class Controller {
 	private TelaCadastroVenda cadastroVenda;
 	private TelaCadastroInvent cadastroProduto;
 	private TelaCadastroColab cadastroView;
+	private TelaCadastroFornecedor cadastroFornecedor;
+
 	private TelaLogin loginView;
 	private TelaAdmin adminView;
 
@@ -53,6 +56,10 @@ public class Controller {
 		this.cadastroView.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.cadastroView.setLocationRelativeTo(null);
 
+		this.cadastroFornecedor = new TelaCadastroFornecedor();
+		this.cadastroFornecedor.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		this.cadastroFornecedor.setLocationRelativeTo(null);
+
 		this.cadastroProduto = new TelaCadastroInvent();
 		this.cadastroProduto.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.cadastroProduto.setLocationRelativeTo(null);
@@ -65,8 +72,10 @@ public class Controller {
 	private void initializeViewListeners() {
 		this.loginView.addLoginListener(new LoginListener());
 
+		// Popup Listeners:
 		this.adminView.addListenerToTable(new FuncionarioModelListener());
 		this.adminView.addCredentialRegisterListener(new CredentialRegisterListener());
+		this.adminView.addProvedorRegisterListener(new ProvedorRegisterListener());
 
 		this.cadastroView.addCadastrarListener(new CadastrarListener());
 
@@ -200,6 +209,17 @@ public class Controller {
 		}
 	
 	}
+
+	class ProvedorRegisterListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			cadastroFornecedor.setVisible(true);
+		}
+
+	}
+
+ 	//ProvedorRegisterListener
 
 	// Register listeners:
 	class CadastrarListener implements ActionListener {
