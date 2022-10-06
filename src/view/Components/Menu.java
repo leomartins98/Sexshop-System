@@ -2,6 +2,7 @@
 package view.Components;
 
 import view.Models.ModelMenu;
+import view.Components.EventMenuSelected;
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
@@ -13,6 +14,14 @@ import java.awt.event.MouseMotionAdapter;
 import javax.swing.JFrame;
 
 public class Menu extends javax.swing.JPanel {
+    
+      private EventMenuSelected event;
+
+    public void addEventMenuSelected(EventMenuSelected event) {
+        this.event = event;
+        listMenu1.addEventMenuSelected(event);
+    }
+    
     public Menu() {
         initComponents();
         setOpaque(false);
@@ -21,8 +30,8 @@ public class Menu extends javax.swing.JPanel {
     }
     
     private void init() {
-        listMenu1.addItem(new ModelMenu("cash", "Vendas", ModelMenu.MenuType.MENU));
         listMenu1.addItem(new ModelMenu("colab", "Colaboradores", ModelMenu.MenuType.MENU));
+        listMenu1.addItem(new ModelMenu("cash", "Vendas", ModelMenu.MenuType.MENU));
         listMenu1.addItem(new ModelMenu("package_1", "Inventário", ModelMenu.MenuType.MENU));
         listMenu1.addItem(new ModelMenu("emoticon-excited", "Clientes", ModelMenu.MenuType.MENU));
         listMenu1.addItem(new ModelMenu("truck-cargo-container", "Fornecedores", ModelMenu.MenuType.MENU));
