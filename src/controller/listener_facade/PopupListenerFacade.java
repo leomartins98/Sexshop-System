@@ -35,6 +35,8 @@ public class PopupListenerFacade {
 
         this.credenciais = credenciais;
         this.itemsLoja = itemsLoja;
+
+		this.initializeViews();
     }
 
     public void execute() {
@@ -43,7 +45,7 @@ public class PopupListenerFacade {
 		this.adminView.addProductPopupListener(new ProductPopupListener());
     }
 
-    public void initializeModels() {
+    public void initializeViews() {
         // Colaboradores:
         this.workerRegisterView = new TelaCadastroColab();
 		this.workerRegisterView.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
