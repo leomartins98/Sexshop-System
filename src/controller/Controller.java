@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JFrame;
 import java.awt.event.*;
 
+import serialization.ProvedorManager;
 import serialization.SerializationManager;
 import loja.Produto;
 import credencial.*;
@@ -28,10 +29,12 @@ public class Controller {
 
 	private SerializationManager<Credencial> credenciais;
 	private SerializationManager<Item> itemsLoja;
+	private ProvedorManager provedores;
 
-	public Controller(TelaLogin login, TelaAdmin adminView, SerializationManager<Credencial> credenciais, SerializationManager<Item> itemsLoja) {
+	public Controller(TelaLogin login, TelaAdmin adminView, SerializationManager<Credencial> credenciais, SerializationManager<Item> itemsLoja, ProvedorManager provedores) {
 		this.loginView = login;
 		this.adminView = adminView;
+		this.provedores = provedores;
 
 		this.itemsLoja = itemsLoja;
 		this.credenciais = credenciais;

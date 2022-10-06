@@ -24,6 +24,9 @@ public class TelaAdmin extends javax.swing.JFrame {
 
 		DefaultTableModel model2 = (DefaultTableModel) jTable2.getModel();
 		model2.setRowCount(0);
+
+        DefaultTableModel model4 = (DefaultTableModel) jTable4.getModel();
+		model4.setRowCount(0);
 	}
 
 	/**
