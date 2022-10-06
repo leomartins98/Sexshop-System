@@ -441,38 +441,6 @@ public class TelaAdmin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton8ActionPerformed
-
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton9ActionPerformed
-
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton10ActionPerformed
-
-    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton11ActionPerformed
-
-	private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) { // GEN-FIRST:event_jButton2ActionPerformed
-		// TODO add your handling code here:
-	} // GEN-LAST:event_jButton2ActionPerformed
-
-	private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) { // GEN-FIRST:event_jButton1ActionPerformed
-		// TODO add your handling code here:
-	} // GEN-LAST:event_jButton1ActionPerformed
-
-	private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) { // GEN-FIRST:event_jButton3ActionPerformed
-		// TODO add your handling code here:
-	} // GEN-LAST:event_jButton3ActionPerformed
-
-	private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) { // GEN-FIRST:event_jButton4ActionPerformed
-		// TODO add your handling code here:
-	} // GEN-LAST:event_jButton4ActionPerformed
-
 	// Métodos Adicionais:
 	public void adicionarFuncionarioNaTabela(String nome, String username, String senha, boolean administrador) {
 		javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
