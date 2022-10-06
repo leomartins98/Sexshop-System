@@ -3,6 +3,7 @@ package controller;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 
+import controller.listener_facade.LoginListenerFacade;
 import controller.listener_facade.RemoveListenerFacade;
 import controller.listener_facade.TableListenerFacade;
 
@@ -42,6 +43,7 @@ public class Controller {
 	// Facades:
 	private RemoveListenerFacade removeListenerFacade;
 	private TableListenerFacade tableListenerFacade;
+	private LoginListenerFacade loginListenerFacade;
 
 	public Controller(TelaLogin login, TelaAdmin adminView, CredentialManager credenciais, ItemManager itemsLoja) {
 		this.loginView = login;
@@ -57,9 +59,11 @@ public class Controller {
 		// Facades:
 		removeListenerFacade = new RemoveListenerFacade(this.adminView, this.credenciais, this.itemsLoja);
 		tableListenerFacade = new TableListenerFacade(this.adminView, this.credenciais, this.itemsLoja);
+		loginListenerFacade = new LoginListenerFacade(this.loginView, this.adminView, this.credenciais);
 
 		removeListenerFacade.execute();
 		tableListenerFacade.execute();
+		loginListenerFacade.execute();
 	}
 
 	private void initializeViews() {
@@ -76,15 +80,9 @@ public class Controller {
 		this.cadastroProduto = new TelaCadastroInvent();
 		this.cadastroProduto.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.cadastroProduto.setLocationRelativeTo(null);
-
-		this.cadastroVenda = new TelaCadastroVenda();
-		this.cadastroVenda.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		this.cadastroVenda.setLocationRelativeTo(null);
 	}
 
 	private void initializeViewListeners() {
-		this.loginView.addLoginListener(new LoginListener());
-
 		// Popup Listener:
 		this.adminView.addCredentialPopupListener(new CredentialPopupListener());
 		this.adminView.addProviderPopupListener(new ProviderPopupListener());
@@ -115,42 +113,6 @@ public class Controller {
 	}
 
 	// **************** Listeners **************** \\
-
-	// Login:
-	class LoginListener implements ActionListener {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			String username = loginView.getUsername();
-			String password = loginView.getPassword();
-
-			Credencial c = credenciais.find("usuario", username);
-
-			if (c == null) {
-				JOptionPane.showMessageDialog(loginView,
-				"O usuário " + username + " não está cadastrado no banco de dados. Verifique com um administrador.",
-				"Erro de Autenticação",
-				JOptionPane.ERROR_MESSAGE);
-				return;
-			}
-
-			if (!c.senha.equals(password)) {
-				JOptionPane.showMessageDialog(loginView,
-				"Senha incorreta. Tente novamente.",
-				"Erro de Autenticação",
-				JOptionPane.ERROR_MESSAGE);
-				return;
-			}
-
-			// Esconde a view de login:
-			loginView.setVisible(false);
-
-			if (c.administrador == true) {
-				adminView.setVisible(true);
-			} else 
-				cadastroVenda.setVisible(true);
-		}
-	}
 
 	// Popup listeners:
 	class CredentialPopupListener implements ActionListener {
