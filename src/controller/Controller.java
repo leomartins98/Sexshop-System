@@ -15,9 +15,11 @@ import view.TelaLogin;
 
 public class Controller {
 
+	// Views:
 	private TelaLogin loginView;
 	private TelaAdmin adminView;
 
+	// Models:
 	private CredentialManager credenciais;
 	private ItemManager itemsLoja;
 
@@ -49,11 +51,11 @@ public class Controller {
 		popupListenerFacade.execute();
 	}
 
+	// Initializers:
 	private void initializeViews() {
 		this.adminView.setLocationRelativeTo(null);
 	}
-
-	// Initializers:
+	
 	private void initializeModels() {
 		for (Credencial c : this.credenciais.get())
 			this.adminView.addToWorkerTable(c.usuario, c.usuario, c.senha, c.administrador);
@@ -65,6 +67,7 @@ public class Controller {
 		}
 	}
 
+	// Execute:
 	public void execute() {
 		this.loginView.setVisible(true);
 	}
