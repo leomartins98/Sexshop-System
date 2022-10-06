@@ -1,6 +1,5 @@
 import serialization.CredentialManager;
 import serialization.ItemManager;
-import serialization.ProvedorManager;
 import controller.Controller;
 
 import view.TelaAdmin;

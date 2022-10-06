@@ -82,11 +82,6 @@ public class TelaCadastroVenda extends javax.swing.JFrame {
         jLabel4.setText("Tipo_Pagamento:");
 
         ComboBox_TipoPgmt.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        ComboBox_TipoPgmt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ComboBox_TipoPgmtActionPerformed(evt);
-            }
-        });
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cart.png"))); // NOI18N
@@ -189,12 +184,6 @@ public class TelaCadastroVenda extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void ComboBox_TipoPgmtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBox_TipoPgmtActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ComboBox_TipoPgmtActionPerformed
-
-  private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {}
 
   public void addCadastrarProduto(ActionListener l) {
     Btn_AddProd.addActionListener(l);
