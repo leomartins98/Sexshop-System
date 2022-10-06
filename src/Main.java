@@ -11,13 +11,12 @@ public class Main {
 		// Bancos de dados:
 		CredentialManager credenciais = new CredentialManager("res/credentials.obj");
 		ItemManager produtos = new ItemManager("res/produtos.obj");
-		ProvedorManager provedores = new ProvedorManager("res/provedores.obj");
 
 		// Views:
 		TelaLogin loginView = new TelaLogin();
 		TelaAdmin adminView = new TelaAdmin();
 
-		Controller controller = new Controller(loginView, adminView, credenciais, produtos, provedores);
+		Controller controller = new Controller(loginView, adminView, credenciais, produtos);
 		controller.execute();
 	}
 }

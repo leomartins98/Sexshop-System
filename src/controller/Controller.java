@@ -34,12 +34,10 @@ public class Controller {
 
 	private CredentialManager credenciais;
 	private ItemManager itemsLoja;
-	private ProvedorManager provedores;
 
-	public Controller(TelaLogin login, TelaAdmin adminView, CredentialManager credenciais, ItemManager itemsLoja, ProvedorManager provedores) {
+	public Controller(TelaLogin login, TelaAdmin adminView, CredentialManager credenciais, ItemManager itemsLoja) {
 		this.loginView = login;
 		this.adminView = adminView;
-		this.provedores = provedores;
 
 		this.itemsLoja = itemsLoja;
 		this.credenciais = credenciais;
