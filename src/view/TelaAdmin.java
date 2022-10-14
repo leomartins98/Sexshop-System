@@ -480,6 +480,18 @@ public class TelaAdmin extends javax.swing.JFrame {
 		model.addTableModelListener(l);
 	}
 
+    public void addProviderTableModelListener(TableModelListener l) {
+		javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable4.getModel();
+		model.addTableModelListener(l);
+	}
+
+    public void addClientTableModelListener(TableModelListener l) {
+		javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable5.getModel();
+		model.addTableModelListener(l);
+	}
+
+    
+
     // Popup Listener:
 	public void addCredentialPopupListener(ActionListener l) {
 		jButton2.addActionListener(l);

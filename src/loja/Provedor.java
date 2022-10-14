@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Provedor implements Serializable {
     private static final long serialVersionUID = 95L;
 
-	public String nome;
+	private String nome;
 
     public Provedor(String nome) {
         this.nome = nome;

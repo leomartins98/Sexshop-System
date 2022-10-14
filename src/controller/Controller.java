@@ -47,7 +47,7 @@ public class Controller {
 
 		// Facades:
 		removeListenerFacade = new RemoveListenerFacade(adminView, credenciais, itemsLoja, provedores, clientes);
-		tableListenerFacade = new TableListenerFacade(adminView, credenciais, itemsLoja);
+		tableListenerFacade = new TableListenerFacade(adminView, credenciais, itemsLoja, provedores, clientes);
 		loginListenerFacade = new LoginListenerFacade(loginView, adminView, credenciais);
 		popupListenerFacade = new PopupListenerFacade(adminView, loginView, this.provedores, credenciais, itemsLoja, this.clientes);
 
