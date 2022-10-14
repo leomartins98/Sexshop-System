@@ -69,6 +69,7 @@ public class LoginListenerFacade {
 			if (c.administrador == true) {
 				adminView.setVisible(true);
 				adminView.setCollaboratorName(toTitleCase(username));
+				adminView.vendedor = toTitleCase(username);
 			} else 
 				cadastroVenda.setVisible(true);
 		}

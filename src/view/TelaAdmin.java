@@ -17,6 +17,8 @@ public class TelaAdmin extends javax.swing.JFrame {
 	/**
 	 * Creates new form TelaAdmin
 	 */
+    public String vendedor;
+
 	public TelaAdmin() {
 		initComponents();
 		DefaultTableModel model1 = (DefaultTableModel) jTable1.getModel();
@@ -509,6 +511,10 @@ public class TelaAdmin extends javax.swing.JFrame {
         jButton10.addActionListener(l);
     }
 
+    public void addSalesPopupListener(ActionListener l) {
+        jButton7.addActionListener(l);
+    }
+    
     // Table Getters:
 	public javax.swing.JTable getColabTable() {
 		return jTable1;
