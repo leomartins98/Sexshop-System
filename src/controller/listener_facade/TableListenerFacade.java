@@ -6,7 +6,6 @@ import view.TelaAdmin;
 
 import credencial.Credencial;
 import loja.Produto;
-import loja.Provedor;
 import loja.Cliente;
 import loja.Item;
 import serialization.ClientManager;

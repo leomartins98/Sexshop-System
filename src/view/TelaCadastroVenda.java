@@ -6,6 +6,8 @@ package view;
 
 import java.awt.event.ActionListener;
 
+import loja.TipoPagamento;
+
 /**
  *
  * @author paulo
@@ -17,6 +19,11 @@ public class TelaCadastroVenda extends javax.swing.JFrame {
      */
     public TelaCadastroVenda() {
         initComponents();
+
+        this.ComboBox_TipoPgmt.removeAllItems();
+        this.ComboBox_TipoPgmt.addItem("Cartao");
+        this.ComboBox_TipoPgmt.addItem("PIX");
+        this.ComboBox_TipoPgmt.addItem("Dinheiro");
     }
 
     @SuppressWarnings("unchecked")
@@ -28,8 +35,6 @@ public class TelaCadastroVenda extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         TotalVenda = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        ComboBox_Cliente = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         ComboBox_TipoPgmt = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
@@ -66,17 +71,15 @@ public class TelaCadastroVenda extends javax.swing.JFrame {
         TotalVenda.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         TotalVenda.setText("Total da Venda: R$ *Total*");
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/emoticon_happy.png"))); // NOI18N
-        jLabel3.setText("Cliente:");
-
-        ComboBox_Cliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/money_dollar.png"))); // NOI18N
         jLabel4.setText("Tipo_Pagamento:");
 
         ComboBox_TipoPgmt.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        ComboBox_TipoPgmt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cart.png"))); // NOI18N
@@ -94,7 +97,7 @@ public class TelaCadastroVenda extends javax.swing.JFrame {
 
         Btn_FinalizarVenda.setText("Finalizar Venda");
 
-        Btn_Preview.setText("Previw Item");
+        Btn_Preview.setText("Preview Item");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -104,7 +107,7 @@ public class TelaCadastroVenda extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(NomeVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 53, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -112,10 +115,6 @@ public class TelaCadastroVenda extends javax.swing.JFrame {
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(ComboBox_TipoPgmt, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(ComboBox_Cliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -150,10 +149,7 @@ public class TelaCadastroVenda extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(ComboBox_Cliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(2, 2, 2)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
                             .addComponent(ComboBox_TipoPgmt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -180,12 +176,42 @@ public class TelaCadastroVenda extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    // Getters:
+    public TipoPagamento getTipoPagamento() {
+        var t = this.ComboBox_TipoPgmt.getSelectedItem().toString();
+        
+        TipoPagamento resultado = TipoPagamento.CARTAO;;
+
+        if(t == "PIX")
+            resultado = TipoPagamento.PIX;
+            
+        else if(t == "Cartao")
+            resultado = TipoPagamento.CARTAO;
+
+        else if(t == "Dinheiro")
+            resultado = TipoPagamento.DINHEIRO;
+
+        return resultado;
+    }
+
+    public Integer getQuantidade() {
+        return Integer.parseInt(jSpinner1.getValue().toString());
+    }
+
     // Setters:
     public void setWorker(String workerName) {
         this.NomeVendedor.setText("Vendedor: " + workerName);
     }
 
+    public void setSalesTotal(Float total) {
+        this.TotalVenda.setText("Total da Venda: " + "R$" + total.toString());
+    }
+
     // Listeners:
+    public void finishSaleListener(ActionListener l) {
+        Btn_FinalizarVenda.addActionListener(l);
+    }
+
     public void addCadastrarProduto(ActionListener l) {
         Btn_AddProd.addActionListener(l);
     }
@@ -194,12 +220,10 @@ public class TelaCadastroVenda extends javax.swing.JFrame {
     private javax.swing.JButton Btn_AddProd;
     private javax.swing.JButton Btn_FinalizarVenda;
     private javax.swing.JButton Btn_Preview;
-    private javax.swing.JComboBox<String> ComboBox_Cliente;
     private javax.swing.JComboBox<String> ComboBox_Produto;
     private javax.swing.JComboBox<String> ComboBox_TipoPgmt;
     private javax.swing.JLabel NomeVendedor;
     private javax.swing.JLabel TotalVenda;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;

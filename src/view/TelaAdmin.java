@@ -17,8 +17,6 @@ public class TelaAdmin extends javax.swing.JFrame {
 	/**
 	 * Creates new form TelaAdmin
 	 */
-    public String vendedor;
-
 	public TelaAdmin() {
 		initComponents();
 		DefaultTableModel model1 = (DefaultTableModel) jTable1.getModel();
