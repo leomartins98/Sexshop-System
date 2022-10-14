@@ -2,13 +2,17 @@ package loja;
 
 import java.io.Serializable;
 
-public class Provedor implements Serializable {
+public class Cliente implements Serializable {
     private static final long serialVersionUID = 95L;
 
 	public String nome;
+    public String cpf;
+    public String phone;
 
-    public Provedor(String nome) {
+    public Cliente(String nome, String cpf, String phone) {
         this.nome = nome;
+        this.cpf = cpf;
+        this.phone = phone;
     }
     
     public String getNome() {

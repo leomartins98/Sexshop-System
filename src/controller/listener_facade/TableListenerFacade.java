@@ -6,10 +6,13 @@ import view.TelaAdmin;
 
 import credencial.Credencial;
 import loja.Produto;
+import loja.Provedor;
+import loja.Cliente;
 import loja.Item;
-
+import serialization.ClientManager;
 import serialization.CredentialManager;
 import serialization.ItemManager;
+import serialization.ProvedorManager;
 
 public class TableListenerFacade {
 
@@ -17,16 +20,21 @@ public class TableListenerFacade {
 
     protected CredentialManager credenciais;
     protected ItemManager items;
+	protected ProvedorManager provedores;
+	protected ClientManager clientes;
 
-    public TableListenerFacade(TelaAdmin adminView, CredentialManager credenciais, ItemManager items) {
+    public TableListenerFacade(TelaAdmin adminView, CredentialManager credenciais, ItemManager items, ProvedorManager provedores, ClientManager clientes) {
         this.adminView = adminView;
         this.credenciais = credenciais;
         this.items = items;
+		this.provedores = provedores;
+		this.clientes = clientes;
     }
 
     public void execute() {
         this.adminView.addWorkerTableModelListener(new WorkerTableModelListener());
 		this.adminView.addProductTableModelListener(new ProductTableModelListener());
+		this.adminView.addClientTableModelListener(new ClientTableModelListener());
     }
 
     class WorkerTableModelListener implements TableModelListener {
@@ -77,6 +85,28 @@ public class TableListenerFacade {
 
 			items.update("id", rowAtual[0], new Item(new Produto(id, nome, preco, desc), qtd));
 			items.save();
+		}
+	
+	}
+
+	class ClientTableModelListener implements TableModelListener {
+
+		@Override
+		public void tableChanged(TableModelEvent e) {
+			int row = adminView.getProductTable().getSelectedRow();
+			if (row < 0)
+				return;
+
+			String[] rowAtual = adminView.getProductRowAt(row);
+			if(rowAtual == null)
+				return;
+
+			var nome = rowAtual[1];
+			var cpf =  rowAtual[2];
+			var phone =  rowAtual[3];
+
+			clientes.update("nome", rowAtual[1], new Cliente(nome, cpf, phone));
+			clientes.save();
 		}
 	
 	}

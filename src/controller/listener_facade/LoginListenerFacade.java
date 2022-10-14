@@ -11,6 +11,7 @@ import view.TelaAdmin;
 import view.TelaCadastroVenda;
 import view.TelaLogin;
 
+
 public class LoginListenerFacade {
 
     protected TelaLogin loginView;
@@ -67,8 +68,29 @@ public class LoginListenerFacade {
 
 			if (c.administrador == true) {
 				adminView.setVisible(true);
+				adminView.setCollaboratorName(toTitleCase(username));
+				adminView.vendedor = toTitleCase(username);
 			} else 
 				cadastroVenda.setVisible(true);
 		}
+	}
+
+	// TODO: move to a utils class.
+	private static String toTitleCase(String input) {
+		StringBuilder titleCase = new StringBuilder(input.length());
+		boolean nextTitleCase = true;
+	
+		for (char c : input.toCharArray()) {
+			if (Character.isSpaceChar(c)) {
+				nextTitleCase = true;
+			} else if (nextTitleCase) {
+				c = Character.toTitleCase(c);
+				nextTitleCase = false;
+			}
+	
+			titleCase.append(c);
+		}
+	
+		return titleCase.toString();
 	}
 }

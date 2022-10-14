@@ -17,6 +17,8 @@ public class TelaAdmin extends javax.swing.JFrame {
 	/**
 	 * Creates new form TelaAdmin
 	 */
+    public String vendedor;
+
 	public TelaAdmin() {
 		initComponents();
 		DefaultTableModel model1 = (DefaultTableModel) jTable1.getModel();
@@ -27,6 +29,12 @@ public class TelaAdmin extends javax.swing.JFrame {
 
         DefaultTableModel model4 = (DefaultTableModel) jTable4.getModel();
 		model4.setRowCount(0);
+
+        DefaultTableModel model5 = (DefaultTableModel) jTable5.getModel();
+		model5.setRowCount(0);
+
+        // Menu:
+        jLabel7.setText("Foguinho Sexshop");
 	}
 
 	/**
@@ -104,7 +112,7 @@ public class TelaAdmin extends javax.swing.JFrame {
         jButton5.setText("Excluir");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-               // jButton5ActionPerformed(evt);
+      
             }
         });
 
@@ -150,9 +158,19 @@ public class TelaAdmin extends javax.swing.JFrame {
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/group_add.png"))); // NOI18N
         jButton2.setText("Cadastrar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+
+            }
+        });
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/group_delete.png"))); // NOI18N
         jButton4.setText("Excluir");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+              
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -203,7 +221,7 @@ public class TelaAdmin extends javax.swing.JFrame {
         jButton6.setText("Excluir");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-         //       jButton6ActionPerformed(evt);
+
             }
         });
 
@@ -211,7 +229,7 @@ public class TelaAdmin extends javax.swing.JFrame {
         jButton7.setText("Cadastrar");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-             //   jButton7ActionPerformed(evt);
+
             }
         });
 
@@ -257,9 +275,19 @@ public class TelaAdmin extends javax.swing.JFrame {
 
         jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/lorry_add.png"))); // NOI18N
         jButton8.setText("Cadastrar");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+     
+            }
+        });
 
         jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/lorry_delete.png"))); // NOI18N
         jButton9.setText("Excluir");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -289,10 +317,10 @@ public class TelaAdmin extends javax.swing.JFrame {
 
         jTable5.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+                {null, null, null, null}
             },
             new String [] {
-                "ID", "Nome", "Cpf", "Total Gasto", "Telefone"
+                "ID", "Nome", "Cpf", "Telefone"
             }
         ));
         jScrollPane5.setViewportView(jTable5);
@@ -303,9 +331,19 @@ public class TelaAdmin extends javax.swing.JFrame {
 
         jButton10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/add.png"))); // NOI18N
         jButton10.setText("Cadastrar");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+       
+            }
+        });
 
         jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cancel.png"))); // NOI18N
         jButton11.setText("Excluir");
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -406,6 +444,12 @@ public class TelaAdmin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    // Login Methods:
+    public void setCollaboratorName(String name)
+    {
+        jLabel6.setText("Bem Vindo, " + name + "!");        
+    }
+
 	// Table Insertion:
 	public void addToWorkerTable(String nome, String username, String senha, boolean administrador) {
 		javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
@@ -417,6 +461,16 @@ public class TelaAdmin extends javax.swing.JFrame {
 		model.addRow(new Object[] { id, nome, preco, descricao, qtd });
 	}
 
+    public void addToProvedorTable(String nome) {
+        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable4.getModel();
+		model.addRow(new Object[] { jTable4.getRowCount(), nome });
+    }
+    
+    public void addToClientTable(String nome, String cpf, String phone) {
+        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable5.getModel();
+		model.addRow(new Object[] { jTable4.getRowCount(), nome, cpf, phone });
+    }
+
     // Table Model Listeners:
 	public void addWorkerTableModelListener(TableModelListener l) {
 		javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
@@ -427,6 +481,18 @@ public class TelaAdmin extends javax.swing.JFrame {
 		javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable2.getModel();
 		model.addTableModelListener(l);
 	}
+
+    public void addProviderTableModelListener(TableModelListener l) {
+		javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable4.getModel();
+		model.addTableModelListener(l);
+	}
+
+    public void addClientTableModelListener(TableModelListener l) {
+		javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable5.getModel();
+		model.addTableModelListener(l);
+	}
+
+    
 
     // Popup Listener:
 	public void addCredentialPopupListener(ActionListener l) {
@@ -441,6 +507,14 @@ public class TelaAdmin extends javax.swing.JFrame {
 		jButton3.addActionListener(l);
 	}
 
+    public void addClientPopupListener(ActionListener l) {
+        jButton10.addActionListener(l);
+    }
+
+    public void addSalesPopupListener(ActionListener l) {
+        jButton7.addActionListener(l);
+    }
+    
     // Table Getters:
 	public javax.swing.JTable getColabTable() {
 		return jTable1;
@@ -448,6 +522,14 @@ public class TelaAdmin extends javax.swing.JFrame {
 
     public javax.swing.JTable getProductTable() {
 		return jTable2;
+	}
+
+    public javax.swing.JTable getProviderTable() {
+		return jTable4;
+	}
+
+    public javax.swing.JTable getClientTable() {
+		return jTable5;
 	}
 
     // Row Getters:
@@ -475,6 +557,30 @@ public class TelaAdmin extends javax.swing.JFrame {
         return resultados;
     }
 
+    public String[] getProviderRowAt(int row) {
+        if(row + 1 > jTable4.getRowCount())
+            return null;
+
+		String[] resultados = new String[jTable4.getColumnCount()];
+
+		for (int i = 0; i < jTable4.getColumnCount(); i++)
+			resultados[i] = String.valueOf(jTable4.getModel().getValueAt(row, i));
+
+        return resultados;
+    }
+
+    public String[] getClientRowAt(int row) {
+        if(row + 1 > jTable5.getRowCount())
+            return null;
+
+		String[] resultados = new String[jTable5.getColumnCount()];
+
+		for (int i = 0; i < jTable5.getColumnCount(); i++)
+			resultados[i] = String.valueOf(jTable5.getModel().getValueAt(row, i));
+
+        return resultados;
+    }
+
     // Remove Listeners:
     public void addUserRemoveListener(ActionListener l) {
         jButton4.addActionListener(l);
@@ -482,6 +588,14 @@ public class TelaAdmin extends javax.swing.JFrame {
 
     public void addProductRemoveListener(ActionListener l) {
         jButton5.addActionListener(l);
+    }
+
+    public void addProviderRemoveListener(ActionListener l) {
+        jButton9.addActionListener(l);
+    }
+
+    public void addClientRemoveListener(ActionListener l) {
+        jButton11.addActionListener(l);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
