@@ -426,6 +426,11 @@ public class TelaAdmin extends javax.swing.JFrame {
 		model.addRow(new Object[] { id, nome, preco, descricao, qtd });
 	}
 
+    public void addToProvedorTable(String nome) {
+        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable4.getModel();
+		model.addRow(new Object[] { jTable4.getRowCount(), nome });
+    }
+
     // Table Model Listeners:
 	public void addWorkerTableModelListener(TableModelListener l) {
 		javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
@@ -462,6 +467,10 @@ public class TelaAdmin extends javax.swing.JFrame {
 
     public javax.swing.JTable getProductTable() {
 		return jTable2;
+	}
+
+    public javax.swing.JTable getProviderTable() {
+		return jTable4;
 	}
 
     // Row Getters:

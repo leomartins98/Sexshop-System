@@ -9,8 +9,10 @@ import javax.swing.table.DefaultTableModel;
 import credencial.Credencial;
 import loja.Item;
 import loja.Produto;
+import loja.Provedor;
 import serialization.CredentialManager;
 import serialization.ItemManager;
+import serialization.ProvedorManager;
 import view.TelaAdmin;
 import view.TelaCadastroCliente;
 import view.TelaCadastroColab;
@@ -23,17 +25,19 @@ public class PopupListenerFacade {
     protected TelaCadastroFornecedor cadastroFornecedor;
     protected TelaCadastroColab workerRegisterView;
     protected TelaCadastroInvent cadastroProduto;
-	protected TelaCadastroCliente clientRegisterView;
+	//protected TelaCadastroCliente clientRegisterView;
 
     protected CredentialManager credenciais;
     protected ItemManager itemsLoja;
+	protected ProvedorManager provedores;
 
 	protected TelaLogin loginView;
     protected TelaAdmin adminView;
 
-    public PopupListenerFacade(TelaAdmin adminView, TelaLogin loginView, CredentialManager credenciais, ItemManager itemsLoja) {
+    public PopupListenerFacade(TelaAdmin adminView, TelaLogin loginView, ProvedorManager provedores, CredentialManager credenciais, ItemManager itemsLoja) {
         this.adminView = adminView;
         this.loginView = loginView;
+		this.provedores = provedores;
 
         this.credenciais = credenciais;
         this.itemsLoja = itemsLoja;
@@ -65,11 +69,12 @@ public class PopupListenerFacade {
         this.cadastroFornecedor = new TelaCadastroFornecedor();
 		this.cadastroFornecedor.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.cadastroFornecedor.setLocationRelativeTo(null);
+		this.cadastroFornecedor.addCadastrarProvedor(new CadastrarProvedorListener());
 
 		// Cliente:
-		this.clientRegisterView = new TelaCadastroCliente();
-		this.clientRegisterView.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		this.clientRegisterView.setLocationRelativeTo(null);
+		// this.clientRegisterView = new TelaCadastroCliente();
+		// this.clientRegisterView.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		// this.clientRegisterView.setLocationRelativeTo(null);
     }
 
     // Popup Listeners:
@@ -104,7 +109,7 @@ public class PopupListenerFacade {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			clientRegisterView.setVisible(true);
+			//clientRegisterView.setVisible(true);
 		}
 
 	}
@@ -164,6 +169,31 @@ public class PopupListenerFacade {
 
 			cadastroProduto.clearView();
 			cadastroProduto.setVisible(false);
+		}
+	}
+
+	class CadastrarProvedorListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			int id = adminView.getProviderTable().getRowCount();
+			String name = cadastroFornecedor.getProviderName();
+
+			if(name.isBlank()) {
+				JOptionPane.showMessageDialog(loginView,
+					"Por favor, preencha todos os dados do provedor.",
+					"Erro de Cadastro",
+					JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+
+			DefaultTableModel model = (DefaultTableModel) adminView.getProviderTable().getModel();
+			model.addRow(new Object[] { id, name });
+
+			provedores.add(new Provedor(name));
+			provedores.save();
+
+			cadastroFornecedor.clearView();
+			cadastroFornecedor.setVisible(false);
 		}
 	}
 }
