@@ -6,22 +6,26 @@ import view.TelaAdmin;
 
 import serialization.CredentialManager;
 import serialization.ItemManager;
+import serialization.ProvedorManager;
 
 public class RemoveListenerFacade {
     private TelaAdmin adminView;
 
     protected CredentialManager credenciais;
     protected ItemManager items;
+	protected ProvedorManager provedores;
     
-    public RemoveListenerFacade(TelaAdmin adminView, CredentialManager credenciais, ItemManager items){
+    public RemoveListenerFacade(TelaAdmin adminView, CredentialManager credenciais, ItemManager items, ProvedorManager provedores){
         this.adminView = adminView;
         this.credenciais = credenciais;
         this.items = items;
+		this.provedores = provedores;
     }
 
     public void execute() {
         this.adminView.addUserRemoveListener(new UserRemoveListener());
 		this.adminView.addProductRemoveListener(new ProductRemoveListener());
+		this.adminView.addProviderRemoveListener(new ProviderRemoveListener());
     }
     
     // Listeners:
@@ -41,6 +45,24 @@ public class RemoveListenerFacade {
 			((DefaultTableModel)adminView.getColabTable().getModel()).removeRow(row);
 		}
 
+	}
+
+	class ProviderRemoveListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			int row = adminView.getProviderTable().getSelectedRow();
+			if (row < 0)
+				return;
+
+			String[] rowAtual = adminView.getProviderRowAt(row);
+			
+			provedores.remove("nome", rowAtual[1]);
+			provedores.save();
+			
+			DefaultTableModel model = (DefaultTableModel)adminView.getProviderTable().getModel();
+			model.removeRow(row);
+		}
 	}
 
 	class ProductRemoveListener implements ActionListener {

@@ -498,6 +498,18 @@ public class TelaAdmin extends javax.swing.JFrame {
         return resultados;
     }
 
+    public String[] getProviderRowAt(int row) {
+        if(row + 1 > jTable4.getRowCount())
+            return null;
+
+		String[] resultados = new String[jTable4.getColumnCount()];
+
+		for (int i = 0; i < jTable4.getColumnCount(); i++)
+			resultados[i] = String.valueOf(jTable4.getModel().getValueAt(row, i));
+
+        return resultados;
+    }
+
     // Remove Listeners:
     public void addUserRemoveListener(ActionListener l) {
         jButton4.addActionListener(l);
@@ -505,6 +517,10 @@ public class TelaAdmin extends javax.swing.JFrame {
 
     public void addProductRemoveListener(ActionListener l) {
         jButton5.addActionListener(l);
+    }
+
+    public void addProviderRemoveListener(ActionListener l) {
+        jButton9.addActionListener(l);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

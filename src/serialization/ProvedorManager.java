@@ -7,7 +7,7 @@ public class ProvedorManager extends SerializationManager<Provedor> {
     private static Integer databaseAmount = 1;
 
     public ProvedorManager(String filepath) {
-        super(filepath, "items-" + databaseAmount.toString());
+        super(filepath, "provedor-" + databaseAmount.toString());
         ProvedorManager.databaseAmount++;
     }
     
