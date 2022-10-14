@@ -12,6 +12,7 @@ import loja.Produto;
 import serialization.CredentialManager;
 import serialization.ItemManager;
 import view.TelaAdmin;
+import view.TelaCadastroCliente;
 import view.TelaCadastroColab;
 import view.TelaCadastroFornecedor;
 import view.TelaCadastroInvent;
@@ -19,9 +20,10 @@ import view.TelaLogin;
 
 public class PopupListenerFacade {
 
+    protected TelaCadastroFornecedor cadastroFornecedor;
     protected TelaCadastroColab workerRegisterView;
     protected TelaCadastroInvent cadastroProduto;
-    protected TelaCadastroFornecedor cadastroFornecedor;
+	protected TelaCadastroCliente clientRegisterView;
 
     protected CredentialManager credenciais;
     protected ItemManager itemsLoja;
@@ -43,6 +45,7 @@ public class PopupListenerFacade {
         this.adminView.addCredentialPopupListener(new CredentialPopupListener());
 		this.adminView.addProviderPopupListener(new ProviderPopupListener());
 		this.adminView.addProductPopupListener(new ProductPopupListener());
+		this.adminView.addClientPopupListener(new ClientPopupListener());
     }
 
     public void initializeViews() {
@@ -62,6 +65,11 @@ public class PopupListenerFacade {
         this.cadastroFornecedor = new TelaCadastroFornecedor();
 		this.cadastroFornecedor.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.cadastroFornecedor.setLocationRelativeTo(null);
+
+		// Cliente:
+		this.clientRegisterView = new TelaCadastroCliente();
+		this.clientRegisterView.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		this.clientRegisterView.setLocationRelativeTo(null);
     }
 
     // Popup Listeners:
@@ -88,6 +96,15 @@ public class PopupListenerFacade {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			cadastroFornecedor.setVisible(true);
+		}
+
+	}
+
+	class ClientPopupListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			clientRegisterView.setVisible(true);
 		}
 
 	}

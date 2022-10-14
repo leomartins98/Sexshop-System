@@ -27,6 +27,9 @@ public class TelaAdmin extends javax.swing.JFrame {
 
         DefaultTableModel model4 = (DefaultTableModel) jTable4.getModel();
 		model4.setRowCount(0);
+
+        // Menu:
+        jLabel7.setText("Foguinho Sexshop");
 	}
 
 	/**
@@ -406,6 +409,12 @@ public class TelaAdmin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    // Login Methods:
+    public void setCollaboratorName(String name)
+    {
+        jLabel6.setText("Bem Vindo, " + name + "!");        
+    }
+
 	// Table Insertion:
 	public void addToWorkerTable(String nome, String username, String senha, boolean administrador) {
 		javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable1.getModel();
@@ -440,6 +449,11 @@ public class TelaAdmin extends javax.swing.JFrame {
     public void addProductPopupListener(ActionListener l) {
 		jButton3.addActionListener(l);
 	}
+
+    public void addClientPopupListener(ActionListener l)
+    {
+        jButton10.addActionListener(l);
+    }
 
     // Table Getters:
 	public javax.swing.JTable getColabTable() {
