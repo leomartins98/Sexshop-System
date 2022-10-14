@@ -463,6 +463,11 @@ public class TelaAdmin extends javax.swing.JFrame {
         javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable4.getModel();
 		model.addRow(new Object[] { jTable4.getRowCount(), nome });
     }
+    
+    public void addToClientTable(String nome, String cpf, String phone) {
+        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) jTable5.getModel();
+		model.addRow(new Object[] { jTable4.getRowCount(), nome, cpf, phone });
+    }
 
     // Table Model Listeners:
 	public void addWorkerTableModelListener(TableModelListener l) {

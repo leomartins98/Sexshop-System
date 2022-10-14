@@ -9,6 +9,7 @@ import serialization.CredentialManager;
 import serialization.ItemManager;
 import serialization.ProvedorManager;
 import credencial.*;
+import loja.Cliente;
 import loja.Item;
 import loja.Provedor;
 import view.TelaAdmin;
@@ -45,7 +46,7 @@ public class Controller {
 		this.initializeModels();
 
 		// Facades:
-		removeListenerFacade = new RemoveListenerFacade(adminView, credenciais, itemsLoja, provedores);
+		removeListenerFacade = new RemoveListenerFacade(adminView, credenciais, itemsLoja, provedores, clientes);
 		tableListenerFacade = new TableListenerFacade(adminView, credenciais, itemsLoja);
 		loginListenerFacade = new LoginListenerFacade(loginView, adminView, credenciais);
 		popupListenerFacade = new PopupListenerFacade(adminView, loginView, this.provedores, credenciais, itemsLoja, this.clientes);
@@ -73,7 +74,8 @@ public class Controller {
 		for (Provedor provedor : this.provedores.get())
 			this.adminView.addToProvedorTable(provedor.getNome());
 
-		// TOdo: inicialize clientes
+		for (Cliente cliente : this.clientes.get())
+			this.adminView.addToClientTable(cliente.nome, cliente.cpf, cliente.phone);
 	}
 
 	// Execute:
