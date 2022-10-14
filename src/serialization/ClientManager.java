@@ -1,6 +1,5 @@
 package serialization;
 
-import credencial.Credencial;
 import loja.Cliente;
 
 public class ClientManager extends SerializationManager<Cliente> {
