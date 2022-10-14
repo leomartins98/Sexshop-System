@@ -19,11 +19,13 @@ public class LoginListenerFacade {
     protected CredentialManager credenciais;
 
     private TelaCadastroVenda cadastroVenda;
+	private TelaCadastroVenda adminSalesView;
 
-    public LoginListenerFacade(TelaLogin loginView, TelaAdmin adminView, CredentialManager credenciais) {
+    public LoginListenerFacade(TelaCadastroVenda adminSalesView, TelaLogin loginView, TelaAdmin adminView, CredentialManager credenciais) {
         this.loginView = loginView;
         this.adminView = adminView;
         this.credenciais = credenciais;
+		this.adminSalesView = adminSalesView;
 
         this.initializeView();
     }
@@ -69,9 +71,13 @@ public class LoginListenerFacade {
 			if (c.administrador == true) {
 				adminView.setVisible(true);
 				adminView.setCollaboratorName(toTitleCase(username));
-				adminView.vendedor = toTitleCase(username);
-			} else 
+				adminSalesView.setWorker(toTitleCase(username));
+				adminSalesView.setSalesTotal(0.f);
+			} else {
 				cadastroVenda.setVisible(true);
+				cadastroVenda.setWorker(toTitleCase(username));
+				cadastroVenda.setSalesTotal(0.f);
+			}
 		}
 	}
 

@@ -13,6 +13,7 @@ import loja.Cliente;
 import loja.Item;
 import loja.Provedor;
 import view.TelaAdmin;
+import view.TelaCadastroVenda;
 import view.TelaLogin;
 
 public class Controller {
@@ -20,6 +21,7 @@ public class Controller {
 	// Views:
 	private TelaLogin loginView;
 	private TelaAdmin adminView;
+	private TelaCadastroVenda salesView;
 
 	// Models:
 	private CredentialManager credenciais;
@@ -45,11 +47,14 @@ public class Controller {
 		this.initializeViews();
 		this.initializeModels();
 
+		// Vendas:
+		this.salesView = new TelaCadastroVenda();
+
 		// Facades:
 		removeListenerFacade = new RemoveListenerFacade(adminView, credenciais, itemsLoja, provedores, clientes);
 		tableListenerFacade = new TableListenerFacade(adminView, credenciais, itemsLoja, provedores, clientes);
-		loginListenerFacade = new LoginListenerFacade(loginView, adminView, credenciais);
-		popupListenerFacade = new PopupListenerFacade(adminView, loginView, this.provedores, credenciais, itemsLoja, this.clientes);
+		loginListenerFacade = new LoginListenerFacade(salesView, loginView, adminView, credenciais);
+		popupListenerFacade = new PopupListenerFacade(salesView, adminView, loginView, this.provedores, credenciais, itemsLoja, this.clientes);
 
 		removeListenerFacade.execute();
 		tableListenerFacade.execute();

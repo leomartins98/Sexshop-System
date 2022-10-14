@@ -39,11 +39,13 @@ public class PopupListenerFacade {
 	protected TelaLogin loginView;
     protected TelaAdmin adminView;
 
-    public PopupListenerFacade(TelaAdmin adminView, TelaLogin loginView, ProvedorManager provedores, CredentialManager credenciais, ItemManager itemsLoja, ClientManager clientes) {
+    public PopupListenerFacade(TelaCadastroVenda cadastroVenda, TelaAdmin adminView, TelaLogin loginView, ProvedorManager provedores, CredentialManager credenciais, ItemManager itemsLoja, ClientManager clientes) {
         this.adminView = adminView;
         this.loginView = loginView;
 		this.provedores = provedores;
 		this.clientes = clientes;
+
+		this.saleRegisterView = cadastroVenda;
 
         this.credenciais = credenciais;
         this.itemsLoja = itemsLoja;
@@ -85,10 +87,9 @@ public class PopupListenerFacade {
 		this.clientRegisterView.addCadastrarCliente(new CadastrarClientListener());
 
 		// Venda:
-		this.saleRegisterView = new TelaCadastroVenda();
 		this.saleRegisterView.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		this.saleRegisterView.setLocationRelativeTo(null);
-		this.saleRegisterView.setWorker(this.adminView.vendedor);
+		this.saleRegisterView.finishSaleListener(new CadastrarSalesListener());
     }
 
     // Popup Listeners:
@@ -245,6 +246,34 @@ public class PopupListenerFacade {
 
 			clientRegisterView.clearView();
 			clientRegisterView.setVisible(false);
+		}
+	}
+
+	class CadastrarSalesListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// int id = adminView.getProviderTable().getRowCount();
+			
+			// String name = clientRegisterView.getClientName();
+			// String cpf = clientRegisterView.getClientCPF();
+			// String phone = clientRegisterView.getClientPhone();
+
+			// if(name.isBlank() || cpf.isBlank() || phone.isBlank()) {
+			// 	JOptionPane.showMessageDialog(loginView,
+			// 		"Por favor, preencha todos os dados do cliente.",
+			// 		"Erro de Cadastro",
+			// 		JOptionPane.ERROR_MESSAGE);
+			// 	return;
+			// }
+
+			// DefaultTableModel model = (DefaultTableModel) adminView.getClientTable().getModel();
+			// model.addRow(new Object[] { id, name, cpf, phone });
+
+			// clientes.add(new Cliente(name, cpf, phone));
+			// clientes.save();
+
+			// clientRegisterView.clearView();
+			// clientRegisterView.setVisible(false);
 		}
 	}
 }
