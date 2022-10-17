@@ -1,6 +1,7 @@
 {
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
-        "c:\\Program Files\\NetBeans-15\\netbeans\\java\\modules\\ext\\AbsoluteLayout.jar"
+        "c:\\Program Files\\NetBeans-15\\netbeans\\java\\modules\\ext\\AbsoluteLayout.jar",
+        "C:\\Users\\Leonardo Martins\\Documents\\jar_files\\AbsoluteLayout.jar"
     ]
 }

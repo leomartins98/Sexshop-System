@@ -586,6 +586,7 @@ public class TelaAdmin extends javax.swing.JFrame {
 
     public void addProductRemoveListener(ActionListener l) {
         jButton5.addActionListener(l);
+        
     }
 
     public void addProviderRemoveListener(ActionListener l) {
